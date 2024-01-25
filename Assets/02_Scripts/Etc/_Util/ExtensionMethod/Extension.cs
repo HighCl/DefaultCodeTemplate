@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
@@ -415,6 +416,34 @@ public static class Extension
     public static string GetEnum2Str(object key)
     {
         return Enum.GetName(key.GetType(), key);
+    }
+
+    /// <summary>
+    /// 검색할 단어와 리스트를 넘겨주면
+    /// 검색된 리스트를 반환하는 함수
+    /// </summary>
+    public static List<string> SearchTextNormalize(string inputText, List<string> searchGroup)
+    {
+        List<string> findGroup = new List<string>();
+
+        //inputText와 searchGroup의 NDF 변환
+        var inputTextNfd = inputText.Normalize(System.Text.NormalizationForm.FormKD);
+        List<string> searchNfd = new List<string>();
+        foreach (var item in searchGroup)
+        {
+            searchNfd.Add(item.Normalize(System.Text.NormalizationForm.FormKD));
+        }
+
+        //검색
+        int idx = -1;
+        for (int i = 0; i < searchNfd.Count; i++)
+        {
+            idx = searchNfd[i].IndexOf(inputTextNfd, StringComparison.Ordinal);
+            if (idx != -1)
+                findGroup.Add(searchGroup[i]);
+        }
+
+        return findGroup;
     }
     #endregion
 
