@@ -40,6 +40,7 @@ OP.GG for Desktop(WebGL Demo): OPGG 공식 사이트에서 다운받으면 이�
 ### 설치 필요 에셋
 1. ReadOnlyAttribute<br>
 [스토어 링크](https://assetstore.unity.com/packages/tools/gui/readonly-attribute-134710)<br>
+비용: 무료<br>
 
 위 에셋을 설치하지 않으면 <b>정상 작동하지 않습니다.</b><br>
 <br>
@@ -47,6 +48,7 @@ OP.GG for Desktop(WebGL Demo): OPGG 공식 사이트에서 다운받으면 이�
 ### 기타 사용 에셋
 1. TMP 설치<br>
 유니티 내 설치<br>
+비용: 무료<br>
 
 위 에셋을 설치하지 않으면 <b>정상 작동하지 않을 수 있습니다.</b><br>
 <br>
