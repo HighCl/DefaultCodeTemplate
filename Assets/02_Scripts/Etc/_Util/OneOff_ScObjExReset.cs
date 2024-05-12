@@ -1,3 +1,4 @@
+using DefaultSetting.Utility;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace DefaultSetting
         /// 3. 곧바로 로직 실행 후 스스로 삭제
         /// </summary>
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
         public bool isLogicEnd = false;
 
         private void Reset()
@@ -47,7 +48,7 @@ namespace DefaultSetting
 
             foreach (var scObjExPath in findScriptsPath)
             {
-                string testString = scObjExPath.Replace(Application.dataPath.Replace("/Assets/", ""),"Assets/");
+                string testString = scObjExPath.Replace(Application.dataPath.Replace("/Assets/", ""), "Assets/");
                 Debug.Log(testString);
 
                 ScriptableObjectEx tempSc = AssetDatabase.LoadAssetAtPath<ScriptableObjectEx>(testString);
@@ -61,6 +62,6 @@ namespace DefaultSetting
             Debug.Log("제거 완료");
             DestroyImmediate(this);
         }
-    #endif
+#endif
     }
 }

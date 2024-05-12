@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace DefaultSetting
+namespace DefaultSetting.Utility
 {
     public static class GameObjectExtension
     {
