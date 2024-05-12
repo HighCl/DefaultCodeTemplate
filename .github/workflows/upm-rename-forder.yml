@@ -25,8 +25,6 @@ jobs:
 
     - name: Rename folders
       run: |
-        mv Assets/00_Assets Assets/00_Assets~
-        mv Assets/00_Test Assets/00_Test~
         mv Assets/01_Scenes Assets/01_Scenes~
         mv Assets/02_Scripts Assets/02_Scripts~
         mv Assets/03_Prefabs Assets/03_Prefabs~
