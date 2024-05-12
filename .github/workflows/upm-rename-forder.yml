@@ -12,7 +12,7 @@ jobs:
     - name: Checkout the repository
       uses: actions/checkout@v3
       with:
-        token: ${{ secrets.GH_PAT }}
+        token: ${{ secrets.RENAME_PAT }}
         fetch-depth: 0
 
     - name: Setup Git Config
@@ -44,4 +44,4 @@ jobs:
       run: |
         git push -u origin upm
       env:
-        GITHUB_TOKEN: ${{ secrets.RENAME_PAT_UNTIL_240612 }}
+        GITHUB_TOKEN: ${{ secrets.RENAME_PAT }}
