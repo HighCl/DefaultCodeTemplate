@@ -1,12 +1,14 @@
-
 # Default Code Template
 이 깃은 강성욱(HighCl)의 기본 코드 템플릿입니다.<br>
-저에 대한 더 자세한 정보는 아래 링크를 참고해주세요<br>
+제가 게임을 개발하면서 쌓아온 노하우를 템플릿화 해놨습니다.<br>
+UPM(Unity Package Manager)를 이용해 다운받을 수 있습니다.<br>
 <br>
+
 # 블로그
-[블로그](https://blog.naver.com/fdsa1469/221353170686)<br>
+[네이버 블로그](https://blog.naver.com/fdsa1469/221353170686)<br>
 블로그에 제작중인 프로젝트의 정보와 회고 등의 활동들을 업로드하고 있습니다.<br>
 <br>
+
 # 출시한 게임들
 ### Hellbound Roeps
 [스팀](https://store.steampowered.com/app/2591090/Hellbound_Ropes/)<br>
@@ -23,9 +25,31 @@ OP.GG for Desktop(WebGL Demo): OPGG 공식 사이트에서 다운받으면 이�
 [블로그](https://blog.naver.com/fdsa1469/223041499127)<br>
 <br>
 
+# Import Setup
+UPM을 이용해 Import가 가능합니다.<br>
+
+Package Manager -> [Add package from git URL...]에서
+```json
+https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm
+```
+위 링크를 입력하거나<br>
+<br>
+프로젝트의 패키지 폴더로 이동하여 manifest.json파일을 오픈한 다음 dependencies에 이 패키지를 추가하면 이용 가능합니다.<br>
+
+```json
+{
+  "dependencies": {
+    "com.highcl.code-template": "https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm",
+    ...
+  }
+}
+```
+이후 Package Manager -> Samples에서 프로젝트를 Import하시면 됩니다.<br>
+<br>
 # 유니티 버전
 21.3.20f1<br>
 <br>
+
 # 커밋 규칙
 [Git 사용 규칙 - Git commit 메시지](https://tttsss77.tistory.com/58)<br>
 제 프로젝트에서는 위 글의 커밋 컨벤션을 따르고 있습니다.<br>
