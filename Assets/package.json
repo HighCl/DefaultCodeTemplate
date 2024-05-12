@@ -1,0 +1,56 @@
+{
+  "name": "com.highcl.codetemplate",
+  "displayName": "HighCl Code Template",
+  "version": "0.0.1",
+  "unity": "2021.3",
+  "description": "HighCl Code Template",
+  "license": "MIT(This software includes the work that is distributed in the Apache License 2.0)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HighCl/UPMTest.git?path=Assets"
+  },
+  "samples": [
+    {
+      "displayName": "01_Scenes",
+      "path": "01_Scenes"
+    },
+    {
+      "displayName": "02_Scripts",
+      "path": "02_Scripts"
+    },
+    {
+      "displayName": "03_Prefabs",
+      "path": "03_Prefabs"
+    },
+    {
+      "displayName": "Example_Script",
+      "path": "02_Scripts"
+    },
+    {
+      "displayName": "04_Sources",
+      "path": "04_Sources"
+    },
+    {
+      "displayName": "05_Sounds",
+      "path": "05_Sounds"
+    },
+    {
+      "displayName": "06_Animations",
+      "path": "06_Animations"
+    },
+    {
+      "displayName": "07_Assets",
+      "path": "07_Assets"
+    },
+    {
+      "displayName": "Resources",
+      "path": "Resources"
+    }
+  ],
+  "gitDependencies": {},
+  "author": {
+    "name": "Highcl",
+    "email": "fdsa1469@naver.com",
+    "url": "https://blog.naver.com/fdsa1469/221353170686"
+  }
+}
