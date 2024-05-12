@@ -34,6 +34,8 @@ jobs:
         mv Assets/06_Animations Assets/06_Animations~
         mv Assets/07_Assets Assets/07_Assets~
         mv Assets/Resources Assets/Resources~
+        rm -rf Assets/00_Assets Assets/00_Assets.meta
+        rm -rf Assets/00_Test Assets/00_Test.meta
         rm -rf Assets/01_Scenes Assets/01_Scenes.meta
         rm -rf Assets/02_Scripts Assets/02_Scripts.meta
         rm -rf Assets/03_Prefabs Assets/03_Prefabs.meta
@@ -42,7 +44,6 @@ jobs:
         rm -rf Assets/06_Animations Assets/06_Animations.meta
         rm -rf Assets/07_Assets Assets/07_Assets.meta
         rm -rf Assets/Resources Assets/Resources.meta
-
 
     - name: Commit changes
       run: |
