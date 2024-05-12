@@ -40,8 +40,8 @@ jobs:
         git add .
         git commit -m "Renamed folders as per new structure"
 
-    - name: Push changes
+    - name: Force push changes to UPM branch
       run: |
-        git push -u origin upm
+          git push -u origin upm -f
       env:
         GITHUB_TOKEN: ${{ secrets.RENAME_PAT }}
