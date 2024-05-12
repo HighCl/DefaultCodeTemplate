@@ -3,7 +3,7 @@
   "displayName": "HighCl Code Template",
   "version": "0.0.1",
   "unity": "2021.3",
-  "description": "HighCl Code Template",
+  "description": "HighCl Code Template\nLink: https://github.com/HighCl/DefaultCodeTemplate\nScripting Define Symbols DISABLESTEAMWORKS 추가\n",
   "license": "MIT(This software includes the work that is distributed in the Apache License 2.0)",
   "repository": {
     "type": "git",
