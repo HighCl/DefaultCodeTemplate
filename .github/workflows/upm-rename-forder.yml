@@ -12,7 +12,8 @@ jobs:
     - name: Checkout the repository
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0  # 모든 기록을 가져옵니다.
+        token: ${{ secrets.GH_PAT }}
+        fetch-depth: 0
 
     - name: Setup Git Config
       run: |
