@@ -176,6 +176,12 @@ namespace DefaultSetting.Utility
                 tr.localPosition = v;
             }
         }
+
+        public static void ClearChild(this Transform tr)
+        {
+            foreach (Transform child in tr)
+                UnityEngine.Object.Destroy(child.gameObject);
+        }
         #endregion
 
         #region GameUtil
