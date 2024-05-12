@@ -12,35 +12,35 @@
   "samples": [
     {
       "displayName": "01_Scenes",
-      "path": "01_Scenes"
+      "path": "01_Scenes~"
     },
     {
       "displayName": "02_Scripts",
-      "path": "02_Scripts"
+      "path": "02_Scripts~"
     },
     {
       "displayName": "03_Prefabs",
-      "path": "03_Prefabs"
+      "path": "03_Prefabs~"
     },
     {
       "displayName": "04_Sources",
-      "path": "04_Sources"
+      "path": "04_Sources~"
     },
     {
       "displayName": "05_Sounds",
-      "path": "05_Sounds"
+      "path": "05_Sounds~"
     },
     {
       "displayName": "06_Animations",
-      "path": "06_Animations"
+      "path": "06_Animations~"
     },
     {
       "displayName": "07_Assets",
-      "path": "07_Assets"
+      "path": "07_Assets~"
     },
     {
       "displayName": "Resources",
-      "path": "Resources"
+      "path": "Resources~"
     }
   ],
   "gitDependencies": {},
