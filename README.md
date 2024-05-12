@@ -29,9 +29,17 @@ Git 사용 규칙 - Git commit 메시지: https://tttsss77.tistory.com/58<br/>
 제 프로젝트에서는 위 글의 커밋 컨벤션을 따르고 있습니다.<br/>
 <br/>
 # 기본 설치 에셋<br/>
-1. Editor Console Pro<br/>
-2. TMP 설치<br/>
-위 두 에셋을 설치하지 않으면 정상 작동하지 않을 수 있습니다.<br/>
+1. ReadOnlyAttribute<br/>
+- 스토어 링크:<br/>
+https://assetstore.unity.com/packages/tools/gui/readonly-attribute-134710<br/>
+<br/>
+위 에셋을 설치하지 않으면 정상 작동하지 않습니다.<br/>
+<br/>
+# 확장 사용 에셋<br/>
+1. TMP 설치<br/>
+- 유니티 내 설치<br/>
+<br/>
+위 에셋을 설치하지 않으면 정상 작동하지 않을 수 있습니다.<br/>
 <br/>
 # 기본 설정<br/>
 Editor - EnterPlayMode 설정<br/>
