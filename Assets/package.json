@@ -1,5 +1,5 @@
 {
-  "name": "com.highcl.codetemplate",
+  "name": "com.highcl.code-template",
   "displayName": "HighCl Code Template",
   "version": "0.0.1",
   "unity": "2021.3",
@@ -7,7 +7,7 @@
   "license": "MIT(This software includes the work that is distributed in the Apache License 2.0)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/HighCl/UPMTest.git?path=Assets"
+    "url": "https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets"
   },
   "samples": [
     {
@@ -21,10 +21,6 @@
     {
       "displayName": "03_Prefabs",
       "path": "03_Prefabs"
-    },
-    {
-      "displayName": "Example_Script",
-      "path": "02_Scripts"
     },
     {
       "displayName": "04_Sources",
