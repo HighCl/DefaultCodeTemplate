@@ -6,6 +6,7 @@ using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -85,6 +86,11 @@ namespace DefaultSetting.Utility
             if (component == null)
                 component = go.AddComponent<T>();
             return component;
+        }
+
+        public static void BindEvent(this GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
+        {
+            UI_Base.BindEvent(go, action, type);
         }
         #endregion
 
