@@ -63,6 +63,9 @@ namespace DefaultSetting
 
         protected T Get<T>(int idx) where T : UnityEngine.Object
         {
+            if (isInit == false)
+                Init();
+
             UnityEngine.Object[] objects = null;
             if (_objects.TryGetValue(typeof(T), out objects) == false)
                 return null;
