@@ -417,6 +417,14 @@ namespace DefaultSetting.Utility
 
         #endregion
 
+        #region Enum
+        // Enum 타입의 int 값 반환 확장 메소드
+        public static int ToInt(this Enum enumValue)
+        {
+            return Convert.ToInt32(enumValue);
+        }
+        #endregion
+
         #region String
         public static string GetSecond2Timer(float secondTime)
         {
