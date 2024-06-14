@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,15 +5,19 @@ namespace DefaultSetting
 {
     public class GizmoObject : MonoBehaviour
     {
-        public float radius = 1;
-        public Color gizmoColor = Color.white;
+        [SerializeField] private bool isShow = true;
+        [SerializeField] private float radius = 1;
+        [SerializeField] private Color gizmoColor = Color.white;
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
+            if (!isShow)
+                return;
+
             Handles.color = gizmoColor;
-            Handles.DrawSolidArc(transform.position, Vector3.back, transform.right, 360, 1);
+            Handles.DrawSolidArc(transform.position, Vector3.back, transform.right, 360, radius);
         }
-    #endif
+#endif
     }
 }
