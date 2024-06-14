@@ -243,8 +243,7 @@ namespace DefaultSetting
                 Managers.Test.OnTest();
             }
         }
-#endif
-#if ENABLE_LEGACY_INPUT_MANAGER
+#elif ENABLE_LEGACY_INPUT_MANAGER
 
         [SerializeField] private KeyCode JumpKeyCode = KeyCode.Space;
 
