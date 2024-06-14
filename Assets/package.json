@@ -47,6 +47,7 @@
   "dependencies": {
     "com.unity.textmeshpro": "3.0.6"
   },
+  "documentationUrl": "https://github.com/HighCl/DefaultCodeTemplate",
   "author": {
     "name": "Highcl",
     "email": "fdsa1469@naver.com",
