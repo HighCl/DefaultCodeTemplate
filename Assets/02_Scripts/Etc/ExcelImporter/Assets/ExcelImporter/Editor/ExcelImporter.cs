@@ -1,12 +1,13 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using NPOI.HSSF.UserModel;
-using NPOI.XSSF.UserModel;
-using NPOI.SS.UserModel;
+using System.Text.RegularExpressions;
+using UnityEditor;
+using UnityEngine;
 
 namespace DefaultSetting
 {
@@ -154,6 +155,62 @@ namespace DefaultSetting
             //셀의 타입을 가져와서
             var type = isFormulaEvalute ? cell.CachedFormulaResultType : cell.CellType;
 
+            if (fieldInfo.FieldType.IsSubclassOf(typeof(UnityEngine.Object)))
+            {
+                string assetPath = cell.StringCellValue;
+                if (assetPath == "Not Load")
+                    return null;
+
+                UnityEngine.Object asset = Resources.Load(assetPath, fieldInfo.FieldType);
+                if (asset == null)
+                    Debug.LogWarning($"asset 로드에 실패했습니다.\nPath: {assetPath}\n");
+
+                return asset;
+            }
+            else if (fieldInfo.FieldType == typeof(Vector2))
+            {
+                string[] split = Regex.Replace(cell.StringCellValue, "[()]", "").Split(',');
+                if (split.Length != 2)
+                    throw new FormatException("Input string is not in the correct format for a Vector2: " + cell.StringCellValue);
+
+                if (float.TryParse(split[0].Trim(), out float x) && float.TryParse(split[1].Trim(), out float y))
+                    return new Vector2(x, y);
+                else
+                    throw new FormatException("One or both coordinates could not be converted to float: " + cell.StringCellValue);
+            }
+            else if (fieldInfo.FieldType == typeof(Vector3))
+            {
+                string[] split = Regex.Replace(cell.StringCellValue, "[()]", "").Split(',');
+                if (split.Length != 3)
+                    throw new FormatException("Input string is not in the correct format for a Vector3: " + cell.StringCellValue);
+
+                if (float.TryParse(split[0].Trim(), out float x) && float.TryParse(split[1].Trim(), out float y) && float.TryParse(split[2].Trim(), out float z))
+                    return new Vector3(x, y, z);
+                else
+                    throw new FormatException("One or more coordinates could not be converted to float: " + cell.StringCellValue);
+            }
+            else if (fieldInfo.FieldType == typeof(Color))
+            {
+                ICellStyle cellStyle = cell.CellStyle;
+                if (cellStyle is XSSFCellStyle)
+                {
+                    XSSFCellStyle xssfCellStyle = (XSSFCellStyle)cellStyle;
+                    XSSFColor xssfColor = xssfCellStyle.FillForegroundColorColor as XSSFColor;
+                    if (xssfColor != null && xssfColor.RGB != null)
+                    {
+                        byte[] rgb = xssfColor.RGB;
+                        if (rgb.Length == 3) // RGB 색상만 있는 경우
+                        {
+                            return new Color(rgb[0] / 255f, rgb[1] / 255f, rgb[2] / 255f);
+                        }
+                        else if (rgb.Length == 4) // ARGB 색상인 경우
+                        {
+                            return new Color(rgb[1] / 255f, rgb[2], rgb[3] / 255f, rgb[0] / 255f);
+                        }
+                    }
+                }
+            }
+
             //타입에 맞는 값을 리턴시켜준다.
             switch (type)
             {
@@ -203,7 +260,7 @@ namespace DefaultSetting
                 }
                 catch
                 {
-                    throw new Exception(string.Format("Invalid excel cell type at row {0}, column {1}, {2} sheet.", row.RowNum, cell.ColumnIndex, sheetName));
+                    throw new Exception(string.Format("Invalid excel cell type at row {0}, column {1}, {2} sheet.\n", row.RowNum, cell.ColumnIndex, sheetName));
                 }
             }
             return entity;
@@ -269,14 +326,14 @@ namespace DefaultSetting
         //Excel에서 값을 추출해서 스크립터블에 세팅해준다.
         static void ImportExcel(string excelPath, ExcelAssetInfo info)
         {
-    
+
             string assetPath = "";
             //TODO : 에셋의 파일명 지정
             string assetName = info.OriginalName + ASSET_NAME + ".asset"; //파일명 지정
 
             //info.Attribute.AssetPath = "\\HAHA"; //???경로를 정해주면 생성이 안되는 이유가 뭐지
 
-    		//TODO : 스크립트를 바탕으로 에셋 생성
+            //TODO : 스크립트를 바탕으로 에셋 생성
             if (string.IsNullOrEmpty(info.Attribute.AssetPath)) //??? 경로가 지정되어 있지 않다면 엑셀 경로에 스크립터블 생성한다 이런느낌인가
             {
                 //엑셀 경로와 동일하게
@@ -294,9 +351,10 @@ namespace DefaultSetting
             IWorkbook book = LoadBook(excelPath);
 
             //ExcelAssetInfo에서 필드(시트 정보 포함 / "Entities1", "Entities2")의 정보를 가져온다
-            //public List<MstItemEntity1> Entities1; 이 곳
             //형식 : System.Reflection.FieldInfo[]
-            var assetFields = info.AssetType.GetFields();
+            var assetFields = info.AssetType.GetFields(
+        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+            );
             int sheetCount = 0; //로그용 변수
 
             //필드, 즉 변수들을 불러와 foreach로 체크한 후 적용한다.

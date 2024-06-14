@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f7b8638ae259a48a8348bb2a134acd, type: 3}
   m_Name: ExImporterAsset
   m_EditorClassIdentifier: 
-  Save:
+  Example1:
   - id: 1
     name: aaa
     price: 3
@@ -73,3 +73,18 @@ MonoBehaviour:
     isNotForSale: 1
     rate: 8.01
     category: 2
+  Example2:
+  - id: 0
+    name: AAA
+    vector2: {x: 0.1, y: 0.2}
+    vector3: {x: 0.1, y: 0.2, z: 0.3}
+    color: {r: 1, g: 0.7529412, b: 0, a: 1}
+    objPrefab: {fileID: 0}
+    objSprite: {fileID: 0}
+  - id: 1
+    name: BBB
+    vector2: {x: 1.1, y: 1.2}
+    vector3: {x: 1.1, y: 1.2, z: 1.3}
+    color: {r: 0.35686275, g: 0.60784316, b: 0.8352941, a: 1}
+    objPrefab: {fileID: 0}
+    objSprite: {fileID: 0}
