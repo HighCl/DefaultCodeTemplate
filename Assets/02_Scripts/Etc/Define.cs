@@ -37,7 +37,9 @@ namespace DefaultSetting
         public enum UIEvent
         {
             Click,
+            BeginDrag,
             Drag,
+            EndDrag,
             Enter,
             Exit,
             Down,
