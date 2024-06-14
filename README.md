@@ -58,10 +58,14 @@ Package Manager -> [Add package from git URL...]에서 `https://github.com/HighC
 
 # 에셋
 ### 기본 설치 에셋
-1. unity-excel-importer<br>
-[Git 링크](https://github.com/mikito/unity-excel-importer)<br>
+1. TMP 설치<br>
+비용: 무료(유니티 기본 패키지)<br>
+비고: 종속성 설정이 되어 있어 3.0.6 버전 자동 설치
+
+2. unity-excel-importer<br>
+링크: [Git 링크](https://github.com/mikito/unity-excel-importer)<br>
 라이센스: MIT License<br>
-비고: 수정 사항 일부 있음
+비고: 사용 편의성을 위한 수정 사항 일부 있음
 
 ### 설치 필요 에셋
 1. ReadOnlyAttribute<br>
@@ -69,14 +73,6 @@ Package Manager -> [Add package from git URL...]에서 `https://github.com/HighC
 비용: 무료
 
 위 에셋을 설치하지 않으면 <b>정상 작동하지 않습니다.</b><br>
-<br>
-
-### 기타 사용 에셋
-1. TMP 설치<br>
-유니티 내 설치<br>
-비용: 무료
-
-위 에셋을 설치하지 않으면 <b>정상 작동하지 않을 수 있습니다.</b><br>
 <br>
 
 # 기본 설정
