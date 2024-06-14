@@ -44,6 +44,9 @@
     }
   ],
   "gitDependencies": {},
+  "dependencies": {
+    "com.unity.textmeshpro": "3.0.6"
+  },
   "author": {
     "name": "Highcl",
     "email": "fdsa1469@naver.com",
