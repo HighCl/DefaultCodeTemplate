@@ -83,5 +83,13 @@ Package Manager -> [Add package from git URL...]에서 `https://github.com/HighC
 
 - Scripting Define Symbols <b>DISABLESTEAMWORKS</b> 추가하기
 
-템플릿 중 Steam과 관련된 기능이 있기에 만약 심볼이 없는 경우 에러가 발생할 수 있습니다.
-<br><br>
+템플릿 중 Steam과 관련된 기능이 있기에 만약 심볼이 없는 경우 에러가 발생할 수 있습니다.<br>
+
+- Editor Config 추가
+```json
+root = true
+
+[*]
+charset = utf-8
+```
+프로젝트 폴더에 위 내용을 포함한 .editorconfig 파일을 만들어 추가합니다.
