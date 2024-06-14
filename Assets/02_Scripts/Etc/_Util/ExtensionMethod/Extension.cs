@@ -744,9 +744,7 @@ namespace DefaultSetting.Utility
         }
         #endregion
         #region Else
-        /// <summary>
-        /// 두 선분의 교차점을 구하는 함수
-        /// </summary>
+        /// <summary> 두 선분의 교차점을 구하는 함수 </summary>
         public static bool LineIntersection(Vector2 aStartPos, Vector2 aEndPos, Vector2 bStartPos, Vector2 bEndPos, out Vector2 intersection)
         {
             intersection = Vector2.zero;
@@ -781,6 +779,27 @@ namespace DefaultSetting.Utility
 
             return true;
         }
+
+        /// <summary> Angle을 Direction으로 변환하는 함수 </summary>
+        public static Vector2 AngleToDirection(float angle)
+        {
+            // 각도를 라디안으로 변환
+            float angleInRadians = angle * Mathf.Deg2Rad;
+
+            float x = Mathf.Cos(angleInRadians);
+            float y = Mathf.Sin(angleInRadians);
+
+            x = x > 0.001f ? x : 0;
+            y = y > 0.001f ? y : 0;
+
+            // 각도로부터 방향 벡터 계산
+            Vector2 direction = new Vector2(x, y);
+
+            // 결과 출력 (디버깅용)
+            Debug.Log("Direction: " + direction);
+            return direction;
+        }
+
         #endregion
         #endregion
     }
