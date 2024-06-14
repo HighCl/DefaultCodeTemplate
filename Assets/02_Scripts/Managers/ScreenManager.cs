@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DefaultSetting
 {
-    public class VideoManager : MonoBehaviour
+    public class ScreenManager : MonoBehaviour
     {
         [SerializeField]
         private List<Resolution> resolutions = new List<Resolution>();

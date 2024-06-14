@@ -16,7 +16,7 @@ namespace DefaultSetting
         SceneManagerEx _scene;
         SoundManager _sound;
         UIManager _ui;
-        VideoManager _video;
+        ScreenManager _video;
 
         public static DataManager Data
         {
@@ -98,12 +98,12 @@ namespace DefaultSetting
                 return Instance._ui;
             }
         }
-        public static VideoManager Video
+        public static ScreenManager Video
         {
             get
             {
                 if (Instance._video == null)
-                    Instance._video = GetOrMakeManager<VideoManager>();
+                    Instance._video = GetOrMakeManager<ScreenManager>();
 
                 return Instance._video;
             }

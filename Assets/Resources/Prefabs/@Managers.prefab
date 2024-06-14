@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6947312665465298570}
-  - component: {fileID: 7038441912509958087}
+  - component: {fileID: 7414911959863696445}
   m_Layer: 0
-  m_Name: VideoManager
+  m_Name: ScreenManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 7853858526235599571}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7038441912509958087
+--- !u!114 &7414911959863696445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 250255888062098478}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58ad37626f2b15348813313feaa1fd9e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4116d827eaa78044fb9c79a96f5cd161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   screenMode: 1
@@ -97,6 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083af48f743eeb9469a595ca782dcc8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  JumpKeyCode: 32
+  _waitJumpDown: 0
+  waitJumpDownTime: 0.2
+  <WaitJumpPressed>k__BackingField: 0
+  _waitJumpUp: 0
+  waitJumpUpTime: 0.2
 --- !u!1 &2524147598634570052
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,6 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282a66bfb3ed3a34d88744456eda154b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isValueCheckBox: 0
   testType: 1
 --- !u!1 &4741898211156320587
 GameObject:
