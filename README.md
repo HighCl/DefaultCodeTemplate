@@ -93,3 +93,8 @@ root = true
 charset = utf-8
 ```
 프로젝트 폴더에 위 내용을 포함한 .editorconfig 파일을 만들어 추가합니다.
+
+- TMP Settings 변경<br>
+
+Default Font Asset = 기본 폰트로 변경<br>
+Enable Raycast Target = False<br>
