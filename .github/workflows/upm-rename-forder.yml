@@ -32,7 +32,7 @@ jobs:
         mv Assets/04_Sources Assets/04_Sources~
         mv Assets/05_Sounds Assets/05_Sounds~
         mv Assets/06_Animations Assets/06_Animations~
-        mv Assets/07_Assets Assets/07_TestAssets~
+        mv Assets/07_TestAssets Assets/07_TestAssets~
         mv Assets/Resources Assets/Resources~
         rm -rf Assets/00_Assets Assets/00_Assets.meta
         rm -rf Assets/00_Test Assets/00_Test.meta
@@ -42,7 +42,7 @@ jobs:
         rm -rf Assets/04_Sources Assets/04_Sources.meta
         rm -rf Assets/05_Sounds Assets/05_Sounds.meta
         rm -rf Assets/06_Animations Assets/06_Animations.meta
-        rm -rf Assets/07_Assets Assets/07_TestAssets.meta
+        rm -rf Assets/07_TestAssets Assets/07_TestAssets.meta
         rm -rf Assets/Resources Assets/Resources.meta
 
     - name: Commit changes
