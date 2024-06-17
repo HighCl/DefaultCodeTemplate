@@ -214,13 +214,17 @@ namespace DefaultSetting.Utility
             //Unity Struct
             else if (data is RaycastResult raycastResult)
             {
-                AppendString($"raycastResult: {raycastResult.gameObject.name} ", sb);
+                AppendString($"RaycastResult: {raycastResult.gameObject.name} ", sb);
+                return;
+            }
+            else if (data is RaycastHit raycastHit)
+            {
+                AppendString($"RaycastHit: {raycastHit.transform.name} ", sb);
                 return;
             }
             //Override ToString
             else if (data is Vector2 vec)
             {
-                //AppendString(vec.ToString(), sb);
                 AppendString($"{{{vec.x}, {vec.y}}} ", sb);
                 return;
             }
