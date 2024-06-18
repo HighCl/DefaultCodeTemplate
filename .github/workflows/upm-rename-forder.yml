@@ -33,7 +33,9 @@ jobs:
         mv Assets/05_Sounds Assets/05_Sounds~
         mv Assets/06_Animations Assets/06_Animations~
         mv Assets/07_TestAssets Assets/07_TestAssets~
+        mv Assets/OriginalAssets Assets/OriginalAssets~
         mv Assets/Resources Assets/Resources~
+        mv Assets/ThirdPartyTools Assets/ThirdPartyTools~
         rm -rf Assets/00_Assets Assets/00_Assets.meta
         rm -rf Assets/00_Test Assets/00_Test.meta
         rm -rf Assets/01_Scenes Assets/01_Scenes.meta
@@ -43,7 +45,9 @@ jobs:
         rm -rf Assets/05_Sounds Assets/05_Sounds.meta
         rm -rf Assets/06_Animations Assets/06_Animations.meta
         rm -rf Assets/07_TestAssets Assets/07_TestAssets.meta
+        rm -rf Assets/OriginalAssets Assets/OriginalAssets.meta
         rm -rf Assets/Resources Assets/Resources.meta
+        rm -rf Assets/ThirdPartyTools Assets/ThirdPartyTools.meta
 
     - name: Commit changes
       run: |

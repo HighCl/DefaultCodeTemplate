@@ -39,8 +39,16 @@
       "path": "07_TestAssets~"
     },
     {
+      "displayName": "OriginalAssets",
+      "path": "OriginalAssets~"
+    },
+    {
       "displayName": "Resources",
       "path": "Resources~"
+    },
+    {
+      "displayName": "ThirdPartyTools",
+      "path": "ThirdPartyTools~"
     }
   ],
   "gitDependencies": {},
