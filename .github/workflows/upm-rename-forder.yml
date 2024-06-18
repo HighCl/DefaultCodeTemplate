@@ -32,7 +32,6 @@ jobs:
         mv Assets/04_Sources Assets/04_Sources~
         mv Assets/05_Sounds Assets/05_Sounds~
         mv Assets/06_Animations Assets/06_Animations~
-        mv Assets/07_TestAssets Assets/07_TestAssets~
         mv Assets/OriginalAssets Assets/OriginalAssets~
         mv Assets/Resources Assets/Resources~
         mv Assets/ThirdPartyTools Assets/ThirdPartyTools~
@@ -47,7 +46,6 @@ jobs:
         rm -rf Assets/04_Sources Assets/04_Sources.meta
         rm -rf Assets/05_Sounds Assets/05_Sounds.meta
         rm -rf Assets/06_Animations Assets/06_Animations.meta
-        rm -rf Assets/07_TestAssets Assets/07_TestAssets.meta
         rm -rf Assets/OriginalAssets Assets/OriginalAssets.meta
         rm -rf Assets/Resources Assets/Resources.meta
         rm -rf Assets/ThirdPartyTools Assets/ThirdPartyTools.meta
