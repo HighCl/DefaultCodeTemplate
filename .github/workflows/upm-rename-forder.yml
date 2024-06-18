@@ -23,11 +23,6 @@ jobs:
     - name: Create local UPM branch
       run: |
         git checkout -b upm || git checkout upm
-        
-    - name: Sync with main branch
-      run: |
-        git fetch origin main:main
-        git merge main
 
     - name: empty directory check
       run: |
