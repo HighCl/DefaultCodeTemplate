@@ -11,40 +11,44 @@
   },
   "samples": [
     {
+      "displayName": "Load All Assets",
+      "path": "SampleAssets~"
+    },
+    {
       "displayName": "01_Scenes",
-      "path": "01_Scenes~"
+      "path": "SampleAssets~/01_Scenes~"
     },
     {
       "displayName": "02_Scripts",
-      "path": "02_Scripts~"
+      "path": "SampleAssets~/02_Scripts~"
     },
     {
       "displayName": "03_Prefabs",
-      "path": "03_Prefabs~"
+      "path": "SampleAssets~/03_Prefabs~"
     },
     {
       "displayName": "04_Sources",
-      "path": "04_Sources~"
+      "path": "SampleAssets~/04_Sources~"
     },
     {
       "displayName": "05_Sounds",
-      "path": "05_Sounds~"
+      "path": "SampleAssets~/05_Sounds~"
     },
     {
       "displayName": "06_Animations",
-      "path": "06_Animations~"
+      "path": "SampleAssets~/06_Animations~"
     },
     {
       "displayName": "OriginalAssets",
-      "path": "OriginalAssets~"
+      "path": "SampleAssets~/OriginalAssets~"
     },
     {
       "displayName": "Resources",
-      "path": "Resources~"
+      "path": "SampleAssets~/Resources~"
     },
     {
       "displayName": "ThirdPartyTools",
-      "path": "ThirdPartyTools~"
+      "path": "SampleAssets~/ThirdPartyTools~"
     }
   ],
   "gitDependencies": {},
