@@ -24,30 +24,6 @@ jobs:
       run: |
         git checkout -b upm || git checkout upm
 
-    - name: empty directory check
-      run: |
-        mkdir -p Assets/01_Scenes
-        mkdir -p Assets/02_Scripts
-        mkdir -p Assets/03_Prefabs
-        mkdir -p Assets/04_Sources
-        mkdir -p Assets/05_Sounds
-        mkdir -p Assets/06_Animations
-        mkdir -p Assets/07_TestAssets
-        mkdir -p Assets/OriginalAssets
-        mkdir -p Assets/Resources
-        mkdir -p Assets/ThirdPartyTools
-
-        touch Assets Assets/01_Scenes/.gitkeep
-        touch Assets Assets/02_Scripts/.gitkeep
-        touch Assets Assets/03_Prefabs/.gitkeep
-        touch Assets Assets/04_Sources/.gitkeep
-        touch Assets Assets/05_Sounds/.gitkeep
-        touch Assets Assets/06_Animations/.gitkeep
-        touch Assets Assets/07_TestAssets/.gitkeep
-        touch Assets Assets/OriginalAssets/.gitkeep
-        touch Assets Assets/Resources/.gitkeep
-        touch Assets Assets/ThirdPartyTools/.gitkeep
-
     - name: Rename folders
       run: |
         mv Assets/01_Scenes Assets/01_Scenes~
