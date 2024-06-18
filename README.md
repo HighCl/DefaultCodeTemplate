@@ -71,7 +71,7 @@ https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm
 
 ### 설치 필요 에셋
 1. ReadOnlyAttribute<br>
-[스토어 링크](https://assetstore.unity.com/packages/tools/gui/readonly-attribute-134710)<br>
+링크: [에셋 스토어 링크](https://assetstore.unity.com/packages/tools/gui/readonly-attribute-134710)<br>
 비용: 무료
 
 위 에셋을 설치하지 않으면 <b>정상 작동하지 않습니다.</b><br>
