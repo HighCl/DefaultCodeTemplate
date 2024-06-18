@@ -38,6 +38,7 @@ jobs:
         mv Assets/ThirdPartyTools Assets/ThirdPartyTools~
 
     - name: delete meta files
+      run: |
         rm -rf Assets/00_Assets Assets/00_Assets.meta
         rm -rf Assets/00_Test Assets/00_Test.meta
         rm -rf Assets/01_Scenes Assets/01_Scenes.meta
