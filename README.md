@@ -38,7 +38,7 @@ https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm
 
 프로젝트의 패키지 폴더로 이동하여 manifest.json파일을 오픈한 다음 dependencies에 이 패키지를 추가하면 이용 가능합니다.
 
-```json
+```jsonc
 {
   "dependencies": {
     "com.highcl.code-template": "https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm",
