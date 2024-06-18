@@ -33,7 +33,6 @@ jobs:
         mv Assets/04_Sources "Assets/SampleAssets~/04_Sources~"
         mv Assets/05_Sounds "Assets/SampleAssets~/05_Sounds~"
         mv Assets/06_Animations "Assets/SampleAssets~/06_Animations~"
-        mv Assets/07_TestAssets "Assets/SampleAssets~/07_TestAssets~"
         mv Assets/OriginalAssets "Assets/SampleAssets~/OriginalAssets~"
         mv Assets/Resources "Assets/SampleAssets~/Resources~"
         mv Assets/ThirdPartyTools "Assets/SampleAssets~/ThirdPartyTools~"
