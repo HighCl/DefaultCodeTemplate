@@ -27,15 +27,15 @@ jobs:
     - name: Create and reorganize folders
       run: |
         mkdir -p "Assets/SampleAssets~"
-        mv Assets/01_Scenes "Assets/SampleAssets~/01_Scenes~"
-        mv Assets/02_Scripts "Assets/SampleAssets~/02_Scripts~"
-        mv Assets/03_Prefabs "Assets/SampleAssets~/03_Prefabs~"
-        mv Assets/04_Sources "Assets/SampleAssets~/04_Sources~"
-        mv Assets/05_Sounds "Assets/SampleAssets~/05_Sounds~"
-        mv Assets/06_Animations "Assets/SampleAssets~/06_Animations~"
-        mv Assets/OriginalAssets "Assets/SampleAssets~/OriginalAssets~"
-        mv Assets/Resources "Assets/SampleAssets~/Resources~"
-        mv Assets/ThirdPartyTools "Assets/SampleAssets~/ThirdPartyTools~"
+        mv Assets/01_Scenes "Assets/SampleAssets~/01_Scenes"
+        mv Assets/02_Scripts "Assets/SampleAssets~/02_Scripts"
+        mv Assets/03_Prefabs "Assets/SampleAssets~/03_Prefabs"
+        mv Assets/04_Sources "Assets/SampleAssets~/04_Sources"
+        mv Assets/05_Sounds "Assets/SampleAssets~/05_Sounds"
+        mv Assets/06_Animations "Assets/SampleAssets~/06_Animations"
+        mv Assets/OriginalAssets "Assets/SampleAssets~/OriginalAssets"
+        mv Assets/Resources "Assets/SampleAssets~/Resources"
+        mv Assets/ThirdPartyTools "Assets/SampleAssets~/ThirdPartyTools"
 
     - name: delete meta files
       run: |
