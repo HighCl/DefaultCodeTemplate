@@ -24,7 +24,7 @@ jobs:
       run: |
         git checkout -b upm || git checkout upm
 
-    - name: Rename folders and delete meta files
+    - name: Rename folders
       run: |
         mv Assets/01_Scenes Assets/01_Scenes~
         mv Assets/02_Scripts Assets/02_Scripts~
@@ -36,6 +36,8 @@ jobs:
         mv Assets/OriginalAssets Assets/OriginalAssets~
         mv Assets/Resources Assets/Resources~
         mv Assets/ThirdPartyTools Assets/ThirdPartyTools~
+
+    - name: delete meta files
         rm -rf Assets/00_Assets Assets/00_Assets.meta
         rm -rf Assets/00_Test Assets/00_Test.meta
         rm -rf Assets/01_Scenes Assets/01_Scenes.meta
