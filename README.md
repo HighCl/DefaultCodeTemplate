@@ -88,7 +88,7 @@ https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm
 템플릿 중 Steam과 관련된 기능이 있기에 만약 심볼이 없는 경우 에러가 발생할 수 있습니다.<br>
 
 - Editor Config 추가
-```json
+```jsonc
 root = true
 
 [*]
