@@ -30,7 +30,8 @@ OP.GG for Desktop(WebGL Demo): OPGG 공식 사이트에서 다운받으면 이�
 # Import Setup
 UPM을 이용해 Import가 가능합니다.
 
-Package Manager -> [Add package from git URL...]에서 `https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm`
+Package Manager -> [Add package from git URL...]에서<br>
+`https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm`
 
 위 링크를 입력하거나
 
