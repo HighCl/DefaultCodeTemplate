@@ -2,6 +2,7 @@ using DefaultSetting.Utility;
 using System.Collections;
 using UnityEngine;
 
+#pragma warning disable 0414
 namespace DefaultSetting
 {
     public class Test_HBRSPlayerMove : BasePlayerMove
@@ -663,3 +664,4 @@ namespace DefaultSetting
         }
     }
 }
+#pragma warning restore 0414
