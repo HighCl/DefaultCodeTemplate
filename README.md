@@ -50,7 +50,7 @@ https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm
 <br><br>
 
 # 유니티 버전
-21.3.20f1
+22.3.34f1
 <br><br>
 
 # 커밋 규칙
