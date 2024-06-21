@@ -133,7 +133,7 @@ namespace DefaultSetting
             if (Managers.Data.playState == Define.PlayState.Demo_Web)
                 return;
 
-            Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode, resolutions[resolutionNum].refreshRate);
+            Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode, resolutions[resolutionNum].refreshRateRatio);
         }
 
         public void SetLockMouse(bool isLock)
