@@ -40,15 +40,15 @@
     },
     {
       "displayName": "OriginalAssets",
-      "path": "SampleAssets~/OriginalAssets~"
+      "path": "SampleAssets~/OriginalAssets"
     },
     {
       "displayName": "Resources",
-      "path": "SampleAssets~/Resources~"
+      "path": "SampleAssets~/Resources"
     },
     {
       "displayName": "ThirdPartyTools",
-      "path": "SampleAssets~/ThirdPartyTools~"
+      "path": "SampleAssets~/ThirdPartyTools"
     }
   ],
   "gitDependencies": {},
