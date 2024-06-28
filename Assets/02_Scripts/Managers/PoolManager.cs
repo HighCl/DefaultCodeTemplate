@@ -36,7 +36,7 @@ namespace DefaultSetting
                 if (poolable == null)
                     return;
 
-                poolable.transform.parent = Root;
+                poolable.transform.SetParent(Root, false);
                 poolable.gameObject.SetActive(false);
                 poolable.IsUsing = false;
 
@@ -56,9 +56,9 @@ namespace DefaultSetting
 
                 // DontDestroyOnLoad 해제 용도
                 if (parent == null)
-                    poolable.transform.parent = Managers.Scene.CurrentScene.transform;
+                    poolable.transform.SetParent(Managers.Scene.CurrentScene.transform, false);
 
-                poolable.transform.parent = parent;
+                poolable.transform.SetParent(parent, false);
                 poolable.IsUsing = true;
 
                 return poolable;
@@ -82,7 +82,7 @@ namespace DefaultSetting
         {
             Pool pool = new Pool();
             pool.Init(original, count);
-            pool.Root.parent = _root;
+            pool.Root.SetParent(_root, false);
 
             _pool.Add(original.name, pool);
         }
