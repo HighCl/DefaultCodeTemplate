@@ -5,6 +5,19 @@ namespace DefaultSetting
 {
     public class ResourceManager : MonoBehaviour
     {
+        private T LoadOriginal<T>(string path) where T : Object
+        {
+            T original = Load<T>($"Prefabs/{path}");
+            if (original == null)
+            {
+                string prevFuncName = new System.Diagnostics.StackFrame(1, true).GetMethod().Name;
+                string prevClassName = new System.Diagnostics.StackTrace().GetFrame(1).GetMethod().ReflectedType.Name;
+                Debug.Log($"Failed to load prefab : {path}\nprevFunc : {prevFuncName}\nprefClassName : {prevClassName}\n");
+                return null;
+            }
+            return original;
+        }
+
         public T Load<T>(string path) where T : Object
         {
             if (typeof(T) == typeof(GameObject))
@@ -26,15 +39,7 @@ namespace DefaultSetting
 
         public GameObject Instantiate(string path, Transform parent = null)
         {
-            GameObject original = Load<GameObject>($"Prefabs/{path}");
-            if (original == null)
-            {
-                // 이전 함수명 
-                string prevFuncName = new System.Diagnostics.StackFrame(1, true).GetMethod().Name;
-                string prevClassName = new System.Diagnostics.StackTrace().GetFrame(1).GetMethod().ReflectedType.Name;
-                Debug.Log($"Failed to load prefab : {path}\nprevFunc : {prevFuncName}\nprefClassName : {prevClassName}\n");
-                return null;
-            }
+            GameObject original = LoadOriginal<GameObject>(path);
 
             GameObject go;
             if (original.GetComponent<Poolable>() != null)
@@ -48,12 +53,7 @@ namespace DefaultSetting
 
         public GameObject Instantiate(string path, Vector3 position, Quaternion rotation)
         {
-            GameObject original = Load<GameObject>($"Prefabs/{path}");
-            if (original == null)
-            {
-                Debug.Log($"Failed to load prefab : {path}");
-                return null;
-            }
+            GameObject original = LoadOriginal<GameObject>(path);
 
             GameObject go;
             if (original.GetComponent<Poolable>() != null)
