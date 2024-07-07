@@ -12,17 +12,19 @@ namespace DefaultSetting
 {
     public class SettingManager : MonoBehaviour
     {
-        [Header("SteamWorks Settings")]
+        [Header("Set SteamWorks")]
         [SerializeField] private bool isSteamWorks = false;
 
-        [Header("InputSystem Settings")]
+        [Header("Set InputSystem")]
         [SerializeField] private bool isNewInputSystem = true;
 
-        [Header("TMP Settings")]
+        [Header("Set TMP")]
         [SerializeField] private bool enbaleRayCastTarget = false;
         [Tooltip("파일명 입력 시 프로젝트 내에서 검색합니다.")]
         [SerializeField] private string targetFont = "NanumGothicSDF";
 
+        [Header("Make Editor Config")]
+        [SerializeField] private bool makeEditorConfig = true;
 
         [ProButton]
         private void OnSetting()
@@ -32,6 +34,7 @@ namespace DefaultSetting
             SetEnableSteamWorks();
             SetInputSystem();
             SetTMPs();
+            MakeEditorConfig();
 
             Debug.Log("설정 종료");
         }
@@ -110,6 +113,26 @@ namespace DefaultSetting
             else
             {
                 throw new InvalidOperationException("Field not found");
+            }
+        }
+
+        /// <summary>EditorConfig 파일이 없으면 생성합니다.</summary>
+        private void MakeEditorConfig()
+        {
+            if (!makeEditorConfig)
+                return;
+
+            string projectPath = Application.dataPath.Substring(0, Application.dataPath.Length - "/Assets".Length);
+            string filePath = Path.Combine(projectPath, ".editorconfig");
+
+            if (!File.Exists(filePath))
+            {
+                File.WriteAllText(filePath, "root = true\r\n\r\n[*]\r\ncharset = utf-8");
+                Debug.Log("File created: " + filePath);
+            }
+            else
+            {
+                Debug.Log("File already exists: " + filePath);
             }
         }
 
