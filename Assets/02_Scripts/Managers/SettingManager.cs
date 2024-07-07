@@ -74,6 +74,11 @@ namespace DefaultSetting
         private void SetTMPs()
         {
             TMP_Settings tmpSettings = TMP_Settings.GetSettings();
+            if (tmpSettings == null)
+            {
+                Debug.LogWarning("Not Import TMP Essentials");
+                return;
+            }
 
             Type type = tmpSettings.GetType();
 
