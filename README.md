@@ -92,17 +92,16 @@ https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm
 ※주의※ 사용하는 에셋에 따라 Mode를 꺼줘야 할 수 있습니다.
 
 - @Managers 프리팹의 _SettingManager에서 OnSetting 버튼 실행<br>
-1. SteamSdk 사용 여부 설정<br>
+1. SteamWorks Sdk 사용 여부 설정<br>
 2. 사용할 Input System 설정<br>
 3. TMP 기본값 설정<br>
 3-1. EnableRaycastTarget 설정<br>
 3-2. 기본 폰트 변경(파일명으로 프로젝트 내부 SDF 폰트 에셋 검색)
-
-- Editor Config 추가
+4. Editor Config 추가<br>
 ```jsonc
 root = true
 
 [*]
 charset = utf-8
 ```
-프로젝트 폴더에 위 내용을 포함한 .editorconfig 파일을 만들어 추가합니다.
+&nbsp;&nbsp;&nbsp;&nbsp;스크립트를 Utf-8로 저장하는 .editorconfig 파일을 프로젝트 폴더에 추가합니다.<br>
