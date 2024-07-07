@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b1915d278f411a48b338e7214fe616c, type: 3}
   m_Name: MstMaster
   m_EditorClassIdentifier: 
-  MstLocalizeDataAsset: {fileID: 11400000, guid: 513aa192bcfe897449169bddd8b4f736, type: 2}
-  _bgmData: {fileID: 11400000, guid: 60e83fdc964c00946bec612d1d867a17, type: 2}
+  vec: {x: 0, y: 0, z: 0}
+  <MstLocalizeDataAsset>k__BackingField: {fileID: 11400000, guid: 513aa192bcfe897449169bddd8b4f736, type: 2}
+  <BgmData>k__BackingField: {fileID: 11400000, guid: 60e83fdc964c00946bec612d1d867a17, type: 2}

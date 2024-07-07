@@ -6,14 +6,8 @@ namespace DefaultSetting
     [CreateAssetMenu]
     public class MstMaster : ScriptableObjectEx
     {
-        [SerializeField]
-        private MstLocalizeDataScript MstLocalizeDataAsset;
-
-        [SerializeField]
-        private BgmSc _bgmData;
-
-        public MstLocalizeDataScript MstLocalizeDataScript => MstLocalizeDataAsset;
-        public BgmSc BgmData => _bgmData;
+        [field: SerializeField] public MstLocalizeDataScript MstLocalizeDataAsset { get; set; }
+        [field: SerializeField] public BgmSc BgmData { get; set; }
 
         public override void AutoFind()
         {

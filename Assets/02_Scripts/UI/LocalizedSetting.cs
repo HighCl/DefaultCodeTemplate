@@ -32,7 +32,7 @@ namespace DefaultSetting
 
             //설정된 언어에 따라 변경하기
             //설정된 언어는 게임에서 가지고 있거나 데이터에서 가지고 있는게 맞겠다.
-            string tempStr = Managers.Data.MstMaster.MstLocalizeDataScript.GetLocalizedText(localizedID);
+            string tempStr = Managers.Data.MstMaster.MstLocalizeDataAsset.GetLocalizedText(localizedID);
             if (tempStr == null)
                 return;
 

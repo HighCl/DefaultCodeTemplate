@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8049e11ad0b69479b49953936df470, type: 3}
   m_Name: BgmData
   m_EditorClassIdentifier: 
-  _mainBgm: {fileID: 0}
-  _inGameBgm: {fileID: 0}
+  <MainBgm>k__BackingField: {fileID: 0}
+  <InGameBgm>k__BackingField: {fileID: 0}
