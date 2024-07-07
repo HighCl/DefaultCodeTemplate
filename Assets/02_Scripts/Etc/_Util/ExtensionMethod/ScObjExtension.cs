@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -21,6 +22,7 @@ namespace DefaultSetting.Utility
         {
             //스크립터블의 필드를 모두 찾고
             FieldInfo[] fields = scriptable.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+            //기본 타입은 제거
             fields = fields.Where(e => e.FieldType.IsPrimitive == false && e.FieldType != typeof(string)).ToArray();
 
             foreach (var field in fields)
@@ -37,23 +39,28 @@ namespace DefaultSetting.Utility
                 //에셋 이름 구분하여 찾는 경우 추가
                 string targetFile = assetName + fieldname;
 
-                var findAssets = AssetDatabase.FindAssets(targetFile, new string[] { "Assets" }).Where(e => Path.GetFileNameWithoutExtension(AssetDatabase.GUIDToAssetPath(e)) == targetFile).ToArray();
+                List<string> findAssetPath = AssetDatabase.FindAssets(targetFile, new string[] { "Assets" })
+                    .Where(e => Path.GetFileNameWithoutExtension(AssetDatabase.GUIDToAssetPath(e)) == targetFile)
+                    .Select(asset => AssetDatabase.GUIDToAssetPath(asset))
+                    .ToList();
 
-                switch (findAssets.Length)
+                switch (findAssetPath.Count)
                 {
                     case 0:
                         Debug.LogError($"타겟 파일명 [{targetFile}]와 일치하는 파일을 찾지 못했습니다.\n");
+
+                        field.SetValue(scriptable, null);
                         continue;
-                    case 1:
-                        //파일 발견
+                    case 1: //파일 발견
                         break;
                     default:
-                        Debug.LogError($"타겟 파일명 [{targetFile}]와 동일한 이름의 파일이 {findAssets.Length}개 존재합니다.\n");
+                        Debug.LogError($"타겟 파일명 [{targetFile}]와 동일한 이름의 파일이 {findAssetPath.Length}개 존재합니다.\n");
+
+                        field.SetValue(scriptable, null);
                         continue;
                 }
 
-                var path = AssetDatabase.GUIDToAssetPath(findAssets[0]);
-                object obj = AssetDatabase.LoadAssetAtPath(path, field.FieldType);
+                object obj = AssetDatabase.LoadAssetAtPath(findAssetPath[0], field.FieldType);
                 field.SetValue(scriptable, obj);
             }
         }
