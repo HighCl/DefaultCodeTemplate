@@ -60,11 +60,15 @@ https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm
 
 # 에셋
 ### 기본 설치 에셋
-1. TMP 설치<br>
+1. Text Mesh Pro Package<br>
 비용: 무료(유니티 기본 패키지)<br>
 비고: 종속성 설정이 되어 있어 3.0.6 버전 자동 설치
 
-2. unity-excel-importer<br>
+2. Input System Package<br>
+비용: 무료(유니티 기본 패키지)<br>
+비고: 종속성 설정이 되어 있어 1.7.0 버전 자동 설치
+
+3. unity-excel-importer<br>
 링크: [Git 링크](https://github.com/mikito/unity-excel-importer)<br>
 라이센스: MIT License<br>
 비고: 사용 편의성을 위한 수정 사항 일부 있음
@@ -72,6 +76,10 @@ https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm
 ### 설치 필요 에셋
 1. ReadOnlyAttribute<br>
 링크: [에셋 스토어 링크](https://assetstore.unity.com/packages/tools/gui/readonly-attribute-134710)<br>
+비용: 무료
+
+2. Inspector Button Pro - Editor Buttons With Parameters<br>
+링크: [에셋 스토어 링크](https://assetstore.unity.com/packages/tools/utilities/inspector-button-pro-editor-buttons-with-parameters-151474)<br>
 비용: 무료
 
 위 에셋을 설치하지 않으면 <b>정상 작동하지 않습니다.</b><br>
@@ -83,9 +91,10 @@ https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm
 ※주의※ 실행 시 디버깅하지 않으므로 반드시 초기값 설정을 해줘야 합니다<br>
 ※주의※ 사용하는 에셋에 따라 Mode를 꺼줘야 할 수 있습니다.
 
-- Scripting Define Symbols <b>DISABLESTEAMWORKS</b> 추가하기
+- @Managers 프리팹의 _SettingManager에서 OnSetting 버튼 실행<br>
 
-템플릿 중 Steam과 관련된 기능이 있기에 만약 심볼이 없는 경우 에러가 발생할 수 있습니다.<br>
+IsSteamWorks 비활성화 시 Define Symbols <b>DISABLESTEAMWORKS</b>가 추가됩니다.<br>
+사용할 Input System에 따라 <b>INPUT_TYPE_NEW</b> 또는 <b>INPUT_TYPE_LEGACY</b> Define Symbols가 추가됩니다.
 
 - Editor Config 추가
 ```jsonc
