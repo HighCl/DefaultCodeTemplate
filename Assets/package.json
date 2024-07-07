@@ -53,7 +53,8 @@
   ],
   "gitDependencies": {},
   "dependencies": {
-    "com.unity.textmeshpro": "3.0.6"
+    "com.unity.textmeshpro": "3.0.6",
+    "com.unity.inputsystem": "1.7.0"
   },
   "documentationUrl": "https://github.com/HighCl/DefaultCodeTemplate",
   "author": {
