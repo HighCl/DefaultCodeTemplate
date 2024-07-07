@@ -691,7 +691,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: DISABLESTEAMWORKS;INPUT_TYPE_NEW
+    Standalone: INPUT_TYPE_NEW;DISABLESTEAMWORKS
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

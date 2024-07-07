@@ -63,6 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 718161655680481018}
   - component: {fileID: 7421288575131761425}
+  - component: {fileID: 3875064055905808406}
   m_Layer: 0
   m_Name: NewInputManager
   m_TagString: Untagged
@@ -97,6 +98,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55a97d0c024c6e54e8fc107a1e6f9f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tempKey: 0
+  waitTempKeyDownTime: 0.2
+  inputHorizontal: {x: 0, y: 0}
+  isHorizontalPressed: 0
+  <MousePos>k__BackingField: {x: 0, y: 0}
+  _waitRopeDown: 0
+  waitRopeDownTime: 0.2
+  <WaitRopePressed>k__BackingField: 0
+  _waitRopeUp: 0
+  waitRopeUpTime: 0.2
+--- !u!114 &3875064055905808406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686703337323545614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: 0}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &2387150345611168977
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +216,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6595707818446130032}
   - {fileID: 889766356015537500}
   - {fileID: 5957845779449275443}
   - {fileID: 9043798239838300510}
@@ -333,13 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b45f99648d5ab4d990f025dcc4a2c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpKeyCode: 32
-  _testKeyCode: 116
-  _waitJumpDown: 0
-  waitJumpDownTime: 0.2
-  <WaitJumpPressed>k__BackingField: 0
-  _waitJumpUp: 0
-  waitJumpUpTime: 0.2
+  _: 0
 --- !u!1 &5776063823199443093
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +604,52 @@ MonoBehaviour:
   <playState>k__BackingField: 3
   <playFlatform>k__BackingField: 0
   <currentLanguage>k__BackingField: 0
+--- !u!1 &7731209636706494136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6595707818446130032}
+  - component: {fileID: 356632696891253097}
+  m_Layer: 0
+  m_Name: _SettingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6595707818446130032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7731209636706494136}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7853858526235599571}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &356632696891253097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7731209636706494136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d6a9d675bc8cb4d9d0651172276e24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSteamWorks: 0
+  isNewInputSystem: 1
 --- !u!1 &8978187198505215744
 GameObject:
   m_ObjectHideFlags: 0
