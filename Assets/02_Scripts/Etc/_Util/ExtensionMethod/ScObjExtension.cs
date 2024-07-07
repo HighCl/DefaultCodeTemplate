@@ -55,7 +55,7 @@ namespace DefaultSetting.Utility
                     case 1: //파일 발견
                         break;
                     default:
-                        Debug.LogError($"타겟 파일명 [{targetFile}]와 동일한 이름의 파일이 {findAssetPath.Length}개 존재합니다.\n");
+                        Debug.LogError($"타겟 파일명 [{targetFile}]와 동일한 이름의 파일이 {findAssetPath.Count}개 존재합니다.\n");
 
                         StringBuilder sb = new();
                         sb.AppendLine($"타겟 파일명 [{targetFile}]와 동일한 이름의 파일이 {findAssetPath.Count}개 존재합니다.");
