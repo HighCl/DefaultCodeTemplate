@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using TMPro;
 using UnityEditor;
+using UnityEditor.Build;
 using UnityEngine;
 
 namespace DefaultSetting
@@ -138,27 +139,31 @@ namespace DefaultSetting
 
         public static void AddDefineSymbol(string targetSymbol)
         {
-            string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(
-                EditorUserBuildSettings.selectedBuildTargetGroup);
+            BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;
+            BuildTargetGroup targetGroup = BuildPipeline.GetBuildTargetGroup(buildTarget);
+            NamedBuildTarget namedBuildTarget = NamedBuildTarget.FromBuildTargetGroup(targetGroup);
+
+            string definesString = PlayerSettings.GetScriptingDefineSymbols(namedBuildTarget);
 
             if (!definesString.Contains(targetSymbol))
             {
                 definesString += $";{targetSymbol}";
-                PlayerSettings.SetScriptingDefineSymbolsForGroup(
-                    EditorUserBuildSettings.selectedBuildTargetGroup, definesString);
+                PlayerSettings.SetScriptingDefineSymbols(namedBuildTarget, definesString);
             }
         }
 
         public static void RemoveDefineSymbol(string targetSymbol)
         {
-            string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(
-                EditorUserBuildSettings.selectedBuildTargetGroup);
+            BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;
+            BuildTargetGroup targetGroup = BuildPipeline.GetBuildTargetGroup(buildTarget);
+            NamedBuildTarget namedBuildTarget = NamedBuildTarget.FromBuildTargetGroup(targetGroup);
 
-            var defines = definesString.Split(';').ToList();
+            string definesString = PlayerSettings.GetScriptingDefineSymbols(namedBuildTarget);
+            List<string> defines = definesString.Split(';').ToList();
             defines.Remove(targetSymbol);
+            string updatedDefinesString = string.Join(";", defines);
 
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(
-                EditorUserBuildSettings.selectedBuildTargetGroup, string.Join(";", defines));
+            PlayerSettings.SetScriptingDefineSymbols(namedBuildTarget, updatedDefinesString);
         }
     }
 }

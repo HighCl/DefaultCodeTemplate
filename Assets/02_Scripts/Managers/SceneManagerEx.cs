@@ -14,7 +14,7 @@ namespace DefaultSetting
         public WaitForSecondsRealtime fadeWfs = null;
         public WaitForSecondsRealtime delayWfs = null;
 
-        public BaseScene CurrentScene { get { return FindObjectOfType<BaseScene>(); } }
+        public BaseScene CurrentScene { get { return FindFirstObjectByType<BaseScene>(); } }
 
         public void Init()
         {
