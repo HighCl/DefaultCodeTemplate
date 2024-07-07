@@ -26,9 +26,12 @@ namespace DefaultSetting.Utility
             //기본 타입은 제거
             fields = fields.Where(e => e.FieldType.IsPrimitive == false && e.FieldType != typeof(string)).ToArray();
 
-            foreach (var field in fields)
+            foreach (FieldInfo field in fields)
             {
                 string fieldname = field.Name;
+
+                //프로퍼티 처리
+                fieldname = System.Text.RegularExpressions.Regex.Replace(fieldname, @"[<>]|k__BackingField", "");
 
                 //언더바 제거
                 if (fieldname.StartsWith("_"))
