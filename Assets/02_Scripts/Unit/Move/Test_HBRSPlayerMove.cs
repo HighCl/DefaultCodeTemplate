@@ -149,11 +149,12 @@ namespace DefaultSetting
         {
             get
             {
-                return Managers.Input.WaitJumpDown;
+                return false;
+                //return Managers.Input.WaitJumpDown;
             }
             set
             {
-                Managers.Input.WaitJumpDown = value;
+                //Managers.Input.WaitJumpDown = value;
             }
         }
 

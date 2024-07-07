@@ -203,14 +203,17 @@ namespace DefaultSetting
             Pool.Clear();
         }
 
-        public static T GetOrMakeManager<T>() where T : Component
+        public static T GetOrMakeManager<T>(GameObject go = null) where T : Component
         {
-            T t = Instance.GetComponentInChildren<T>();
+            if (go == null)
+                go = Instance.gameObject;
+
+            T t = go.GetComponentInChildren<T>();
             if (t == null)
             {
                 GameObject temp = new GameObject(typeof(T).Name);
                 t = temp.AddComponent<T>();
-                temp.transform.parent = Instance.transform;
+                temp.transform.parent = go.transform;
             }
             return t;
         }
