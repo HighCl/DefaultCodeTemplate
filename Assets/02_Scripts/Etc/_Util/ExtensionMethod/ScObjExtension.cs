@@ -31,8 +31,8 @@ namespace DefaultSetting.Utility
                 string fieldname = field.Name;
 
                 //언더바 제거
-                if (fieldname[0].Equals("_"[0]))
-                    fieldname = fieldname.Replace("_", "");
+                if (fieldname.StartsWith("_"))
+                    fieldname = fieldname.Substring(1);
 
                 //첫 문자 대문자
                 fieldname = char.ToUpper(fieldname[0]) + fieldname.Substring(1);
