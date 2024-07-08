@@ -183,6 +183,20 @@ namespace DefaultSetting.Utility
             }
         }
 
+        public static void AddVec(this Transform tr, Vector3 value, bool GlobalPos = true)
+        {
+            if (GlobalPos)
+            {
+                Vector3 v = tr.position + value;
+                tr.position = v;
+            }
+            else
+            {
+                Vector3 v = tr.localPosition + value;
+                tr.localPosition = v;
+            }
+        }
+
         public static void ClearChild(this Transform tr)
         {
             foreach (Transform child in tr)
@@ -798,6 +812,15 @@ namespace DefaultSetting.Utility
             // 결과 출력 (디버깅용)
             Debug.Log("Direction: " + direction);
             return direction;
+        }
+
+        /// <summary> Direction을 Angle로 변환하는 함수 </summary>
+        public static float DirectionToAngle(Vector2 dir)
+        {
+            dir = dir.normalized;
+            float angleInRadians = Mathf.Atan2(dir.y, dir.x);
+            float angleInDegrees = angleInRadians * Mathf.Rad2Deg;
+            return angleInDegrees;
         }
 
         #endregion
