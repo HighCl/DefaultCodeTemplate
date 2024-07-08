@@ -1,4 +1,4 @@
-using DefaultSetting;
+using System;
 using System.Collections;
 using UnityEngine;
 #if INPUT_TYPE_NEW
@@ -11,6 +11,72 @@ namespace DefaultSetting
     [RequireComponent(typeof(PlayerInput))]
     public class NewInputManager : MonoBehaviour
     {
+        #region Class
+
+        [Serializable]
+        class BooleanWrapper
+        {
+            [field: SerializeField] public bool Value { get; set; } = false;
+        }
+
+        [Serializable]
+        class KeyGroup
+        {
+            [SerializeField, ReadOnly] private BooleanWrapper _waitKeyDown = new BooleanWrapper();
+            [SerializeField, ReadOnly] private BooleanWrapper _waitKeyUp = new BooleanWrapper();
+            [SerializeField, ReadOnly] public bool WaitKeyPressed;
+
+            [SerializeField] private float _waitKeyDownTime = 0.2f;
+            [SerializeField] private float _waitKeyUpTime = 0.2f;
+
+            private Coroutine _coWaitKeyDown;
+            private Coroutine _coWaitKeyUp;
+
+            public bool WaitKeyDown
+            {
+                get => _waitKeyDown.Value;
+                set
+                {
+                    if (value == false && _coWaitKeyDown != null)
+                        Managers.Input.StopCoroutine(_coWaitKeyDown);
+
+                    _waitKeyDown.Value = value;
+                }
+            }
+            public bool WaitKeyUp
+            {
+                get => _waitKeyUp.Value;
+                set
+                {
+                    if (value == false && _coWaitKeyUp != null)
+                        Managers.Input.StopCoroutine(_coWaitKeyUp);
+
+                    _waitKeyUp.Value = value;
+                }
+            }
+
+            public void OnStartWaitKeyDown() => StartOrRestartCoroutine(_coWaitKeyDown, Co_KeyControl(_waitKeyDown, _waitKeyDownTime, _coWaitKeyDown));
+            public void OnStartWaitKeyUp() => StartOrRestartCoroutine(_coWaitKeyUp, Co_KeyControl(_waitKeyUp, _waitKeyUpTime, _coWaitKeyUp));
+
+            void StartOrRestartCoroutine(Coroutine coroutine, IEnumerator routine)
+            {
+                if (coroutine != null)
+                    Managers.Input.StopCoroutine(coroutine);
+
+                coroutine = Managers.Input.StartCoroutine(routine);
+            }
+
+            IEnumerator Co_KeyControl(BooleanWrapper booleanWrapper, float waitTime, Coroutine myCoroutine)
+            {
+                booleanWrapper.Value = true;
+                yield return new WaitForSeconds(waitTime);
+                booleanWrapper.Value = false;
+                myCoroutine = null;
+            }
+        }
+
+        #endregion
+
         private PlayerInput playerInput;
 
         public void Init()
@@ -32,8 +98,9 @@ namespace DefaultSetting
             Managers.Input.OnTest();
         }
 
-        #region Input Setting, Rebind
-        //바인드된 키가 있으면 수정해주는 함수
+        #region Input Setting, Rebind, KeyBind Function
+
+        /// <summary> 바인드된 키가 있으면 수정해주는 함수 </summary>
         public void SetBindingKey()
         {
             string rebinds = Managers.Data.CustomGetPrefsString(Define.REBINDS_KEY, string.Empty);
@@ -108,146 +175,96 @@ namespace DefaultSetting
 
             return returnStr;
         }
+
         #endregion
-        #region Binding Keys
-        //--------------------------------------------------------------------------------------------------------------------------------------
+
         //아래로는 각 키의 바인드 내용
-        //--------------------------------------------------------------------------------------------------------------------------------------
+        #region Binding Keys
 
-        //입력 Down 확인
-        [Header("임시 키"), SerializeField, ReadOnly]
-        private bool _tempKey;
-        public bool TempKeyDown
-        {
-            get { return _tempKey; }
-            set
-            {
-                if (value == false)
-                {
-                    StopCoroutine(coWaitTempKeyDown);
-                }
-                _tempKey = value;
-            }
-        }
-        public float waitTempKeyDownTime = 0.2f;
-        Coroutine coWaitTempKeyDown;
-        void OnTemp()
-        {
-            if (coWaitTempKeyDown != null)
-                StopCoroutine(coWaitTempKeyDown);
-
-            coWaitTempKeyDown = StartCoroutine(CoWaitPauseDown());
-
-            IEnumerator CoWaitPauseDown()
-            {
-                _tempKey = true;
-                yield return new WaitForSeconds(waitTempKeyDownTime);
-                _tempKey = false;
-                coWaitTempKeyDown = null;
-            }
-        }
-
-        //입력 Vector2 확인 
-        [field: Header("좌우 입력"), SerializeField, ReadOnly]
-        public Vector2 inputHorizontal;
-        [ReadOnly]
-        public bool isHorizontalPressed = false;
-        void OnMoveHorizontal(InputValue inputValue)
-        {
-            inputHorizontal = inputValue.Get<Vector2>();
-            if (inputHorizontal.x == 0)
-                isHorizontalPressed = false;
-            else
-                isHorizontalPressed = true;
-        }
-
-        [field: Header("마우스 좌표"), SerializeField, ReadOnly]
-        public Vector2 MousePos { get; private set; }
+        [field: Header("마우스 좌표")]
+        [field: ReadOnly] public Vector2 MousePos { get; private set; }
         void OnMousePosition(InputValue inputValue)
         {
             MousePos = inputValue.Get<Vector2>();
         }
 
-        //입력 Down, Up, Pressed 확인
-        [Header("로프키"), SerializeField, ReadOnly]
-        private bool _waitRopeDown;
-        public bool WaitRopeDown
+
+        [field: Header("움직임 입력")]
+        [ReadOnly] public Vector2 inputMoveDir;
+        [ReadOnly] public bool isMovePressed = false;
+        void OnMove(InputValue inputValue)
         {
-            get { return _waitRopeDown; }
-            set
-            {
-                if (value == false)
-                    StopCoroutine(coWaitRopeDown);
+            inputMoveDir = inputValue.Get<Vector2>();
 
-                _waitRopeDown = value;
-            }
+            isMovePressed = inputMoveDir != default ? true : false;
         }
-        [SerializeField]
-        private float waitRopeDownTime = 0.2f;
-        Coroutine coWaitRopeDown;
 
-        [field: SerializeField, ReadOnly]
-        public bool WaitRopePressed { get; private set; }
 
-        [SerializeField, ReadOnly]
-        private bool _waitRopeUp;
-        public bool WaitRopeUp
+        [Header("Dash Key")]
+        [SerializeField] private KeyGroup _dashKeyGroup;
+        public bool WaitDashDown
         {
-            get { return _waitRopeUp; }
-            set
-            {
-                if (value == false)
-                    StopCoroutine(coWaitRopeUp);
-
-                _waitRopeUp = value;
-            }
+            get { return _dashKeyGroup.WaitKeyDown; }
+            set { _dashKeyGroup.WaitKeyDown = value; }
         }
-        [SerializeField]
-        private float waitRopeUpTime = 0.2f;
-        Coroutine coWaitRopeUp;
-        void OnRope(InputValue inputValue)
+        public bool WaitDashUp
+        {
+            get { return _dashKeyGroup.WaitKeyUp; }
+            set { _dashKeyGroup.WaitKeyUp = value; }
+        }
+        void OnDash(InputValue inputValue)
         {
             var value = inputValue.Get<float>();
 
-            //다운
-            if (value == 1)
-            {
-                if (coWaitRopeDown != null)
-                    StopCoroutine(coWaitRopeDown);
-
-                coWaitRopeDown = StartCoroutine(CoWaitRopeDown());
-            }
-
-            //업
-            if (value == 0)
-            {
-                if (coWaitRopeUp != null)
-                    StopCoroutine(coWaitRopeUp);
-
-                coWaitRopeUp = StartCoroutine(CoWaitRopeUp());
-            }
-            //Pressed
-            if (inputValue.Get<float>() == 1)
-                WaitRopePressed = true;
-            else
-                WaitRopePressed = false;
-
-            IEnumerator CoWaitRopeDown()
-            {
-                _waitRopeDown = true;
-                yield return new WaitForSeconds(waitRopeDownTime);
-                _waitRopeDown = false;
-                coWaitRopeDown = null;
-            }
-
-            IEnumerator CoWaitRopeUp()
-            {
-                _waitRopeUp = true;
-                yield return new WaitForSeconds(waitRopeUpTime);
-                _waitRopeUp = false;
-                coWaitRopeUp = null;
-            }
+            _dashKeyGroup.WaitKeyPressed = value == 1; //Pressed
+            if (value == 1) _dashKeyGroup.OnStartWaitKeyDown(); //다운
+            if (value == 0) _dashKeyGroup.OnStartWaitKeyUp(); //업
         }
+
+
+        [Header("Attack Key")]
+        [SerializeField] private KeyGroup _attackKeyGroup;
+        public bool WaitAttackDown
+        {
+            get { return _attackKeyGroup.WaitKeyDown; }
+            set { _attackKeyGroup.WaitKeyDown = value; }
+        }
+        public bool WaitAttackUp
+        {
+            get { return _attackKeyGroup.WaitKeyUp; }
+            set { _attackKeyGroup.WaitKeyUp = value; }
+        }
+        void OnAttack(InputValue inputValue)
+        {
+            var value = inputValue.Get<float>();
+
+            _attackKeyGroup.WaitKeyPressed = value == 1; //Pressed
+            if (value == 1) _attackKeyGroup.OnStartWaitKeyDown(); //다운
+            if (value == 0) _attackKeyGroup.OnStartWaitKeyUp(); //업
+        }
+
+
+        [Header("Temp Key")]
+        [SerializeField] private KeyGroup _tempKeyGroup;
+        public bool WaitTempDown
+        {
+            get => _tempKeyGroup.WaitKeyDown;
+            set => _tempKeyGroup.WaitKeyDown = value;
+        }
+        public bool WaitTempUp
+        {
+            get => _tempKeyGroup.WaitKeyUp;
+            set => _tempKeyGroup.WaitKeyUp = value;
+        }
+        void OnTemp(InputValue inputValue)
+        {
+            var value = inputValue.Get<float>();
+
+            _tempKeyGroup.WaitKeyPressed = value == 1; //Pressed
+            if (value == 1) _tempKeyGroup.OnStartWaitKeyDown(); //다운
+            if (value == 0) _tempKeyGroup.OnStartWaitKeyUp(); //업
+        }
+
         #endregion
     }
 #else
