@@ -6,7 +6,8 @@ UPM(Unity Package Manager)를 이용해 다운받을 수 있습니다.
 <br><br>
 
 # 블로그
-[네이버 블로그](https://blog.naver.com/fdsa1469/221353170686)<br>
+[Tistory](https://highcl.tistory.com/)<br>
+[구_네이버 블로그](https://blog.naver.com/fdsa1469/221353170686)<br>
 블로그에 제작중인 프로젝트의 정보와 회고 등의 활동들을 업로드하고 있습니다.
 <br><br>
 
