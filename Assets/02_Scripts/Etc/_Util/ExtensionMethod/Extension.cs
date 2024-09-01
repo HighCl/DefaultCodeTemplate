@@ -758,6 +758,7 @@ namespace DefaultSetting.Utility
         }
         #endregion
         #region Else
+
         /// <summary> 두 선분의 교차점을 구하는 함수 </summary>
         public static bool LineIntersection(Vector2 aStartPos, Vector2 aEndPos, Vector2 bStartPos, Vector2 bEndPos, out Vector2 intersection)
         {
@@ -823,7 +824,57 @@ namespace DefaultSetting.Utility
             return angleInDegrees;
         }
 
+        public static Vector2 RotateVectorByAngle(Vector2 inputVector, float angle)
+        {
+            double theta = angle * (Math.PI / 180.0);
+
+            // 원래 벡터
+            double x = inputVector.x;
+            double y = inputVector.y;
+
+            // 회전 행렬을 사용하여 벡터 회전
+            double rotatedX = x * Math.Cos(theta) - y * Math.Sin(theta);
+            double rotatedY = x * Math.Sin(theta) + y * Math.Cos(theta);
+
+            return new Vector2((float)rotatedX, (float)rotatedY);
+        }
+
         #endregion
+        #endregion
+        #region Engine
+
+        public static void AddDefineSymbol(string targetSymbol)
+        {
+#if UNITY_EDITOR
+            BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;
+            BuildTargetGroup targetGroup = BuildPipeline.GetBuildTargetGroup(buildTarget);
+            UnityEditor.Build.NamedBuildTarget namedBuildTarget = UnityEditor.Build.NamedBuildTarget.FromBuildTargetGroup(targetGroup);
+
+            string definesString = PlayerSettings.GetScriptingDefineSymbols(namedBuildTarget);
+            if (!definesString.Contains(targetSymbol))
+            {
+                definesString += $";{targetSymbol}";
+                PlayerSettings.SetScriptingDefineSymbols(namedBuildTarget, definesString);
+            }
+#endif
+        }
+
+        public static void RemoveDefineSymbol(string targetSymbol)
+        {
+#if UNITY_EDITOR
+            BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;
+            BuildTargetGroup targetGroup = BuildPipeline.GetBuildTargetGroup(buildTarget);
+            UnityEditor.Build.NamedBuildTarget namedBuildTarget = UnityEditor.Build.NamedBuildTarget.FromBuildTargetGroup(targetGroup);
+
+            string definesString = PlayerSettings.GetScriptingDefineSymbols(namedBuildTarget);
+            List<string> defines = definesString.Split(';').ToList();
+            defines.Remove(targetSymbol);
+            string updatedDefinesString = string.Join(";", defines);
+
+            PlayerSettings.SetScriptingDefineSymbols(namedBuildTarget, updatedDefinesString);
+#endif
+        }
+
         #endregion
     }
 }
