@@ -1,4 +1,5 @@
 using com.cyborgAssets.inspectorButtonPro;
+using DefaultSetting.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using TMPro;
 using UnityEditor;
-using UnityEditor.Build;
 using UnityEngine;
 
 namespace DefaultSetting
@@ -42,37 +42,42 @@ namespace DefaultSetting
 
         private void SetEnableSteamWorks()
         {
+#if UNITY_EDITOR
             string DEFINE_DISABLESTEAMWORKS = "DISABLESTEAMWORKS";
 
             if (isSteamWorks)
             {
-                RemoveDefineSymbol(DEFINE_DISABLESTEAMWORKS);
+                Extension.RemoveDefineSymbol(DEFINE_DISABLESTEAMWORKS);
             }
             else
             {
-                AddDefineSymbol(DEFINE_DISABLESTEAMWORKS);
+                Extension.AddDefineSymbol(DEFINE_DISABLESTEAMWORKS);
             }
+#endif
         }
 
         private void SetInputSystem()
         {
+#if UNITY_EDITOR
             string DEFINE_NEW_INPUT_SYSTEM = "INPUT_TYPE_NEW";
             string DEFINE_LEGACY_INPUT_SYSTEM = "INPUT_TYPE_LEGACY";
 
             if (isNewInputSystem)
             {
-                AddDefineSymbol(DEFINE_NEW_INPUT_SYSTEM);
-                RemoveDefineSymbol(DEFINE_LEGACY_INPUT_SYSTEM);
+                Extension.AddDefineSymbol(DEFINE_NEW_INPUT_SYSTEM);
+                Extension.RemoveDefineSymbol(DEFINE_LEGACY_INPUT_SYSTEM);
             }
             else
             {
-                AddDefineSymbol(DEFINE_LEGACY_INPUT_SYSTEM);
-                RemoveDefineSymbol(DEFINE_NEW_INPUT_SYSTEM);
+                Extension.AddDefineSymbol(DEFINE_LEGACY_INPUT_SYSTEM);
+                Extension.RemoveDefineSymbol(DEFINE_NEW_INPUT_SYSTEM);
             }
+#endif
         }
 
         private void SetTMPs()
         {
+#if UNITY_EDITOR
             TMP_Settings tmpSettings = TMP_Settings.GetSettings();
             if (tmpSettings == null)
             {
@@ -120,11 +125,13 @@ namespace DefaultSetting
             {
                 throw new InvalidOperationException("Field not found");
             }
+#endif
         }
 
         /// <summary>EditorConfig 파일이 없으면 생성합니다.</summary>
         private void MakeEditorConfig()
         {
+#if UNITY_EDITOR
             if (!makeEditorConfig)
                 return;
 
@@ -140,35 +147,7 @@ namespace DefaultSetting
             {
                 Debug.Log("File already exists: " + filePath);
             }
-        }
-
-        public static void AddDefineSymbol(string targetSymbol)
-        {
-            BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;
-            BuildTargetGroup targetGroup = BuildPipeline.GetBuildTargetGroup(buildTarget);
-            NamedBuildTarget namedBuildTarget = NamedBuildTarget.FromBuildTargetGroup(targetGroup);
-
-            string definesString = PlayerSettings.GetScriptingDefineSymbols(namedBuildTarget);
-
-            if (!definesString.Contains(targetSymbol))
-            {
-                definesString += $";{targetSymbol}";
-                PlayerSettings.SetScriptingDefineSymbols(namedBuildTarget, definesString);
-            }
-        }
-
-        public static void RemoveDefineSymbol(string targetSymbol)
-        {
-            BuildTarget buildTarget = EditorUserBuildSettings.activeBuildTarget;
-            BuildTargetGroup targetGroup = BuildPipeline.GetBuildTargetGroup(buildTarget);
-            NamedBuildTarget namedBuildTarget = NamedBuildTarget.FromBuildTargetGroup(targetGroup);
-
-            string definesString = PlayerSettings.GetScriptingDefineSymbols(namedBuildTarget);
-            List<string> defines = definesString.Split(';').ToList();
-            defines.Remove(targetSymbol);
-            string updatedDefinesString = string.Join(";", defines);
-
-            PlayerSettings.SetScriptingDefineSymbols(namedBuildTarget, updatedDefinesString);
+#endif
         }
     }
 }
