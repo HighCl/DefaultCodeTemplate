@@ -275,7 +275,7 @@ namespace DefaultSetting
         {
             CloseAllPopupUI();
             updateLocalizationAction = null;
-            Managers.Resource.Destroy(_sceneUI.gameObject);
+            Managers.Resource.Destroy(_sceneUI?.gameObject);
             _sceneUI = null;
         }
     }
