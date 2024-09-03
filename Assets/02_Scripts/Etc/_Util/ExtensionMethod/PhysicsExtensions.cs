@@ -16,7 +16,7 @@ namespace DefaultSetting
             if (hitInfo.collider == null && maxDistance == Mathf.Infinity)
                 maxDistance = DEFAULT_MAX_DISTANCE;
 
-            Vector3 endPos = hitInfo.collider != null ? hitInfo.point : startPos + dir * maxDistance;
+            Vector3 endPos = hitInfo.collider != null ? hitInfo.point : startPos + dir.normalized * maxDistance;
             Color color = hitInfo.collider != null ? HIT_COLOR : DONT_HIT_COLOR;
 
             Debug.DrawLine(startPos, endPos, color, Time.deltaTime);
@@ -34,7 +34,7 @@ namespace DefaultSetting
             if (!isHit && maxDistance == Mathf.Infinity)
                 maxDistance = DEFAULT_MAX_DISTANCE;
 
-            Vector3 endPos = isHit ? hitInfo.point : startPos + dir * maxDistance;
+            Vector3 endPos = isHit ? hitInfo.point : startPos + dir.normalized * maxDistance;
             Color color = isHit ? HIT_COLOR : DONT_HIT_COLOR;
             Debug.DrawLine(startPos, endPos, color, Time.deltaTime);
 #endif
