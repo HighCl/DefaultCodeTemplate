@@ -1,17 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DefaultSetting
 {
     public class UI_ExampleWorldSpace : UI_Base
     {
-        enum GameObjects
-        {
-            HPBar
-        }
+        [SerializeField] Image exampleImage;
 
         public override void Init()
         {
-            Bind<GameObject>(typeof(GameObjects));
         }
     }
 }

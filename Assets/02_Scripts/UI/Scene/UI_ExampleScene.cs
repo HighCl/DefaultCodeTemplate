@@ -1,5 +1,7 @@
 using DefaultSetting.Utility;
+using System;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -7,24 +9,14 @@ namespace DefaultSetting
 {
     public class UI_ExampleScene : UI_Scene
     {
-        enum Buttons
-        {
-            ExampleButton,
-        }
-
-        enum TMPs
-        {
-            ExampleTxt,
-        }
+        [SerializeField] private Button exampleButton;
+        [SerializeField] private TextMeshProUGUI exampleTxt;
 
         public override void Init()
         {
             base.Init();
 
-            Bind<Button>(typeof(Buttons));
-            Bind<TextMeshProUGUI>(typeof(TMPs));
-
-            GetButton((int)Buttons.ExampleButton).gameObject.BindEvent(
+            exampleButton.gameObject.BindEvent(
                 (PointerEventData data) =>
                 {
                     Managers.Scene.LoadScene(Define.Scene.InGame);
@@ -34,7 +26,7 @@ namespace DefaultSetting
 
         public void Update()
         {
-            //GetTMP((int)TMPs.ExampleTxt).text = $"ExampleTxt\n{Time.time}";
+            exampleTxt.text = $"Example Text\n{Time.time}";
         }
     }
 }

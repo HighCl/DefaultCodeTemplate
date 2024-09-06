@@ -6,18 +6,69 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-//Use1 기존 메소드 호출
-//GetButton((int)Buttons.PointButton).gameObject.BindEvent(OnButtonClicked);
-//Use2 무명 메소드
-//GetButton((int)Buttons.PointButton).gameObject.BindEvent((PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
 namespace DefaultSetting
 {
     public abstract class UI_Base : MonoBehaviour
     {
         protected bool isInit = false;
         [ReadOnly] public List<LocalizedSetting> localizedList = null;
+        [Space(10)]
+        [ReadOnly, SerializeField] private string _ = "------------------------------------------------------------------------------------------------------------------------------------------------------------";
 
-        protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
+        protected virtual void Reset()
+        {
+#if UNITY_EDITOR
+            // 현재 프리팹 편집 모드인지 확인
+            UnityEditor.SceneManagement.PrefabStage prefabStage = UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
+            if (!(prefabStage != null && prefabStage.stageHandle.IsValid()))
+                return;
+
+            Debug.Log($"필드 할당 시작");
+
+            //필드 찾고
+            //TODO: Component만 찾게 설정해야 할듯?
+            System.Reflection.FieldInfo[] fields = this.GetType().GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+            fields = fields
+                .Where(
+                e => e.FieldType.IsSubclassOf(typeof(Component))
+                    && !e.FieldType.IsArray
+                    && !e.FieldType.IsGenericType)
+                .ToArray();
+
+            GameObject prefabRoot = prefabStage.prefabContentsRoot;
+            foreach (System.Reflection.FieldInfo field in fields)
+            {
+                string fieldName = NameModifier(field.Name);
+                Component[] getComponents = prefabRoot.GetComponentsInChildren(field.FieldType);
+                foreach (var comp in getComponents)
+                {
+                    if (!comp.name.Equals(fieldName))
+                        continue;
+
+                    //Debug.Log($"{fieldName} 할당");
+                    field.SetValue(this, comp);
+                    break;
+                }
+            }
+            Debug.Log($"필드 할당 종료");
+
+            string NameModifier(string fieldName)
+            {
+                //프로퍼티 처리
+                fieldName = System.Text.RegularExpressions.Regex.Replace(fieldName, @"[<>]|k__BackingField", "");
+
+                //언더바 제거
+                if (fieldName.StartsWith("_"))
+                    fieldName = fieldName.Substring(1);
+
+                //첫글자 대문자
+                fieldName = char.ToUpper(fieldName[0]) + fieldName.Substring(1);
+
+                return fieldName;
+            }
+#endif
+        }
+
         public virtual void Init()
         {
             isInit = true;
@@ -42,45 +93,6 @@ namespace DefaultSetting
             Managers.UI.updateUIAction -= UpdateUI;
             Managers.UI.updateLocalizationAction -= UpdateLocalization;
         }
-
-        protected void Bind<T>(Type type) where T : UnityEngine.Object
-        {
-            string[] names = Enum.GetNames(type);
-            UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];
-            _objects.Add(typeof(T), objects);
-
-            for (int i = 0; i < names.Length; i++)
-            {
-                if (typeof(T) == typeof(GameObject))
-                    objects[i] = Util.FindChild(gameObject, names[i], true);
-                else
-                    objects[i] = Util.FindChild<T>(gameObject, names[i], true);
-
-                if (objects[i] == null)
-                    Debug.Log($"Failed to bind({names[i]})");
-            }
-        }
-
-        protected T Get<T>(int idx) where T : UnityEngine.Object
-        {
-            if (isInit == false)
-                Init();
-
-            UnityEngine.Object[] objects = null;
-            if (_objects.TryGetValue(typeof(T), out objects) == false)
-                return null;
-
-            return objects[idx] as T;
-        }
-
-        protected GameObject GetObject(int idx) { return Get<GameObject>(idx); }
-        protected Text GetText(int idx) { return Get<Text>(idx); }
-        protected TextMeshProUGUI GetTMP(int idx) { return Get<TextMeshProUGUI>(idx); }
-        protected TMP_Dropdown GetTMP_Dropdown(int idx) { return Get<TMP_Dropdown>(idx); }
-        protected Button GetButton(int idx) { return Get<Button>(idx); }
-        protected Image GetImage(int idx) { return Get<Image>(idx); }
-        protected Slider GetSlider(int idx) { return Get<Slider>(idx); }
-        protected Toggle GetToggle(int idx) { return Get<Toggle>(idx); }
 
         public static void BindEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
         {

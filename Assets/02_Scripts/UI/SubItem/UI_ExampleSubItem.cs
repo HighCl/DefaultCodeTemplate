@@ -1,17 +1,14 @@
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace DefaultSetting
 {
     public class UI_ExampleSubItem : UI_Base
     {
-        enum Images
-        {
-            HPBlock
-        }
+        [SerializeField] Image exampleImage;
 
         public override void Init()
         {
-            Bind<Image>(typeof(Images));
         }
     }
 }
