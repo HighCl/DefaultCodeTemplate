@@ -804,14 +804,14 @@ namespace DefaultSetting.Utility
             float x = Mathf.Cos(angleInRadians);
             float y = Mathf.Sin(angleInRadians);
 
-            x = x > 0.001f ? x : 0;
-            y = y > 0.001f ? y : 0;
+            x = Mathf.Abs(x) < 0.001f ? 0 : x;
+            y = Mathf.Abs(y) < 0.001f ? 0 : y;
 
             // 각도로부터 방향 벡터 계산
             Vector2 direction = new Vector2(x, y);
 
             // 결과 출력 (디버깅용)
-            Debug.Log("Direction: " + direction);
+            //Debug.Log("Direction: " + direction);
             return direction;
         }
 
