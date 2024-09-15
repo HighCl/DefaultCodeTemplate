@@ -95,7 +95,9 @@ namespace DefaultSetting
 
         public void OnTest()
         {
-            Managers.Input.OnTest();
+#if UNITY_EDITOR
+            Managers.Test.OnTest();
+#endif
         }
 
         #region Input Setting, Rebind, KeyBind Function

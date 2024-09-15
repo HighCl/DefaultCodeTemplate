@@ -12,7 +12,7 @@ namespace DefaultSetting
             TestA,
             TestB,
         };
-        public TestType testType = (TestType)1;
+        public TestType testType = TestType.None;
 
         public void Init()
         {
@@ -23,9 +23,11 @@ namespace DefaultSetting
 
         public void OnTest()
         {
+#if UNITY_EDITOR
             print("테스트 시작");
             testAction?.Invoke();
             print("테스트 종료\n");
+#endif
         }
 
         private void TestFunction()
