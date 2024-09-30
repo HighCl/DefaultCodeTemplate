@@ -7,6 +7,7 @@ namespace DefaultSetting
         static readonly int DEFAULT_MAX_DISTANCE = 10000;
         static readonly Color DONT_HIT_COLOR = Color.green;
         static readonly Color HIT_COLOR = Color.red;
+        static readonly float rhombusSize = 0.5f;
 
         public static RaycastHit2D Raycast2DWithDraw(Vector3 startPos, Vector3 dir, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers)
         {
@@ -25,6 +26,35 @@ namespace DefaultSetting
             return hitInfo;
         }
 
+        public static RaycastHit2D[] Raycast2DAllWithDraw(Vector3 startPos, Vector3 dir, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers)
+        {
+            RaycastHit2D[] hitInfoArr = Physics2D.RaycastAll(startPos, dir, maxDistance, layerMask);
+
+#if UNITY_EDITOR
+            if (hitInfoArr.Length == 0 && maxDistance == Mathf.Infinity)
+                maxDistance = DEFAULT_MAX_DISTANCE;
+
+            Vector3 endPos = startPos + dir.normalized * maxDistance;
+            Debug.DrawLine(startPos, endPos, Color.green, Time.deltaTime);
+
+            foreach (var item in hitInfoArr)
+            {
+                Vector2 left = item.point + Vector2.left * rhombusSize;
+                Vector2 right = item.point + Vector2.right * rhombusSize;
+                Vector2 up = item.point + Vector2.up * rhombusSize;
+                Vector2 down = item.point + Vector2.down * rhombusSize;
+
+                Debug.DrawLine(left, up, Color.red, Time.deltaTime);
+                Debug.DrawLine(up, right, Color.red, Time.deltaTime);
+                Debug.DrawLine(right, down, Color.red, Time.deltaTime);
+                Debug.DrawLine(down, left, Color.red, Time.deltaTime);
+                Debug.DrawLine(up, down, Color.red, Time.deltaTime);
+                Debug.DrawLine(left, right, Color.red, Time.deltaTime);
+            }
+#endif
+
+            return hitInfoArr;
+        }
 
         public static bool RaycastWithDraw(Vector3 startPos, Vector3 dir, out RaycastHit hitInfo, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
