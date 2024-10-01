@@ -219,7 +219,12 @@ namespace DefaultSetting.Utility
             }
             else if (data is RaycastHit raycastHit)
             {
-                AppendString($"RaycastHit: {raycastHit.transform.name} ", sb);
+                AppendString($"RaycastHit: {raycastHit.transform?.name} ", sb);
+                return;
+            }
+            else if (data is RaycastHit2D raycastHit2D)
+            {
+                AppendString($"raycastHit2D: {raycastHit2D.transform?.name} ", sb);
                 return;
             }
             //Override ToString
