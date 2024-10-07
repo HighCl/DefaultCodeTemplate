@@ -7,7 +7,14 @@ namespace DefaultSetting
         static readonly int DEFAULT_MAX_DISTANCE = 10000;
         static readonly Color DONT_HIT_COLOR = Color.green;
         static readonly Color HIT_COLOR = Color.red;
-        static readonly float rhombusSize = 0.5f;
+        static readonly float RHOMBUS_SIZE = 0.5f;
+
+        /// <summary> WithDraw와의 빠른 전환을 위한 함수 </summary>
+        public static bool Raycast(Vector3 startPos, Vector3 dir, out RaycastHit hitInfo, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
+        {
+            bool isHit = Physics.Raycast(startPos, dir, out hitInfo, maxDistance, layerMask, queryTriggerInteraction);
+            return isHit;
+        }
 
         public static bool RaycastWithDraw(Vector3 startPos, Vector3 dir, out RaycastHit hitInfo, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {

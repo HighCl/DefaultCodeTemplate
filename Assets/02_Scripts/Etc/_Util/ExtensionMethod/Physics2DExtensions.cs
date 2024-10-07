@@ -9,6 +9,13 @@ namespace DefaultSetting
         static readonly Color HIT_COLOR = Color.red;
         static readonly float RHOMBUS_SIZE = 0.5f;
 
+        /// <summary> WithDraw와의 빠른 전환을 위한 함수 </summary>
+        public static RaycastHit2D Raycast(Vector3 startPos, Vector3 dir, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers)
+        {
+            RaycastHit2D hitInfo = Physics2D.Raycast(startPos, dir, maxDistance, layerMask);
+            return hitInfo;
+        }
+
         public static RaycastHit2D RaycastWithDraw(Vector3 startPos, Vector3 dir, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers)
         {
             RaycastHit2D hitInfo = Physics2D.Raycast(startPos, dir, maxDistance, layerMask);
