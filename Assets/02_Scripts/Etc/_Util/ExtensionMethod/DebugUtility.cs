@@ -9,14 +9,6 @@ using UnityEngine.EventSystems;
 
 namespace DefaultSetting.Utility
 {
-    //카골님 피드백으로 넣을 것
-    //[완] print 전용 StringBuilder 만들기
-    //2. [System.Diagnostics.Conditional("Test")]
-
-
-    /// <summary>
-    /// 일반 클래스의 경우 ToString을 오버라이드하면 원하는 형태로 출력할 수 있습니다.
-    /// </summary>
     public static class DebugUtility
     {
         public static readonly string Null_TEXT = "Data is Null";
@@ -24,6 +16,46 @@ namespace DefaultSetting.Utility
 
         private static StringBuilder printStaticSB = new StringBuilder(); //print 전용 StringBuilder
 
+        #region DrawUtility
+
+        public static void DrawRhombus(Vector2 point, float size, Color color, float duration)
+        {
+            Vector2 left = point + Vector2.left * size / 2;
+            Vector2 right = point + Vector2.right * size / 2;
+            Vector2 up = point + Vector2.up * size / 2;
+            Vector2 down = point + Vector2.down * size / 2;
+
+            // Draw rhombus
+            Debug.DrawLine(left, up, color, duration);
+            Debug.DrawLine(up, right, color, duration);
+            Debug.DrawLine(right, down, color, duration);
+            Debug.DrawLine(down, left, color, duration);
+
+            // Draw cross lines
+            Debug.DrawLine(up, down, color, duration);
+            Debug.DrawLine(left, right, color, duration);
+        }
+
+        public static void DrawSquare(Vector2 center, float size, Color color, float duration)
+        {
+            Vector2 topLeft = center + new Vector2(-size / 2, size / 2);
+            Vector2 topRight = center + new Vector2(size / 2, size / 2);
+            Vector2 bottomLeft = center + new Vector2(-size / 2, -size / 2);
+            Vector2 bottomRight = center + new Vector2(size / 2, -size / 2);
+
+            // Draw square
+            Debug.DrawLine(topLeft, topRight, color, duration);
+            Debug.DrawLine(topRight, bottomRight, color, duration);
+            Debug.DrawLine(bottomRight, bottomLeft, color, duration);
+            Debug.DrawLine(bottomLeft, topLeft, color, duration);
+        }
+
+        #endregion
+        #region PrintUtility
+
+        /// <summary>
+        /// 일반 클래스의 경우 ToString을 오버라이드하면 원하는 형태로 출력할 수 있음
+        /// </summary>
         //[System.Diagnostics.Conditional("A")]
         public static void Print<T>(this T data, string Label = null)
         {
@@ -250,6 +282,7 @@ namespace DefaultSetting.Utility
             else
                 sb.Append(str);
         }
+        #endregion
         #endregion
     }
 }
