@@ -725,6 +725,25 @@ namespace DefaultSetting.Utility
             return 1 - Mathf.Pow(1 - x, 3);
         }
 
+        public static string GetTime2Timer(float secondTime)
+        {
+            int minute = (int)secondTime / 60 % 60;
+            float second = secondTime % 60f;
+
+            return string.Format("{0:D2}:{1:00}", minute, (int)secondTime % 60);
+        }
+
+        public static int GetTime2Millisecond(float secondTime)
+        {
+            int millisecond = Mathf.FloorToInt(secondTime * 1000);
+            return millisecond;
+        }
+
+        public static int GetMS2Time(float millisecond)
+        {
+            int second = Mathf.FloorToInt(millisecond / 1000);
+            return second;
+        }
 
         #endregion
         #region Random
