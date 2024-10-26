@@ -204,6 +204,27 @@ namespace DefaultSetting.Utility
         }
         #endregion
 
+        #region Collision
+
+        public static bool CheckCollision(Collider2D colliderA, Collider2D colliderB) => Physics2D.Distance(colliderA, colliderB).isOverlapped;
+        public static bool CheckCollisionAndReturnContactPoints(Collider2D colliderA, Collider2D colliderB, out Vector2 contactPoint)
+        {
+            contactPoint = Vector2.zero;
+            ColliderDistance2D distance = Physics2D.Distance(colliderA, colliderB);
+
+            // 거리가 0 이하이면 충돌 중
+            if (distance.isOverlapped)
+            {
+                // 접점 반환
+                contactPoint = distance.pointA; // colliderA와 colliderB의 접점
+                return true;
+            }
+
+            return false;
+        }
+
+        #endregion
+
         #region GameUtil
         /// <summary>
         /// targetPos가 화면 범위를 벗어났는지 확인하는 함수
