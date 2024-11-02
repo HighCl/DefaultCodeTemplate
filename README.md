@@ -1,5 +1,3 @@
-토큰 변경 Actions 테스트
-
 # Default Code Template
 이 레포지토리는 강성욱(HighCl)의 기본 코드 템플릿입니다.
 
