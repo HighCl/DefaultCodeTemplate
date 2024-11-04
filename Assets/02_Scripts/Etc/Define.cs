@@ -12,6 +12,13 @@ namespace DefaultSetting
         public static readonly string IS_CURSOR_LOCK_KEY = "CursorLockMode";
         #endregion
 
+        public enum ControlSchema
+        {
+            None = 0,
+            KeyboardMouse,
+            Gamepad,
+        }
+
         public enum PlayState
         {
             Test,

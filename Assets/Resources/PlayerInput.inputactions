@@ -42,7 +42,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Temp",
+                    "name": "InputValue",
                     "type": "Value",
                     "id": "5b7fd80e-96f1-4463-a17e-2a32ecfb257d",
                     "expectedControlType": "",
@@ -308,11 +308,11 @@
                 {
                     "name": "",
                     "id": "3019c832-fb04-4196-bf38-24d2e5a6d109",
-                    "path": "<Keyboard>/t",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Temp",
+                    "action": "InputValue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

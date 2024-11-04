@@ -25,12 +25,14 @@ namespace DefaultSetting
             [SerializeField, ReadOnly] private BooleanWrapper _waitKeyDown = new BooleanWrapper();
             [SerializeField, ReadOnly] private BooleanWrapper _waitKeyUp = new BooleanWrapper();
             [SerializeField, ReadOnly] public bool WaitKeyPressed;
+            [SerializeField] public float triggerThreshold = 0.5f; // 트리거가 눌렸다고 판단할 임계값
 
             [SerializeField] private float _waitKeyDownTime = 0.2f;
             [SerializeField] private float _waitKeyUpTime = 0.2f;
 
             private Coroutine _coWaitKeyDown;
             private Coroutine _coWaitKeyUp;
+            private float previousTriggerValue = 0f;
 
             public bool WaitKeyDown
             {
@@ -54,7 +56,18 @@ namespace DefaultSetting
                     _waitKeyUp.Value = value;
                 }
             }
+            public bool WasKeyDown => previousTriggerValue >= triggerThreshold;
 
+            public void OnInputValue(float value)
+            {
+                bool isButtonDown = value >= triggerThreshold;
+                if (isButtonDown == WasKeyDown) return;
+
+                WaitKeyPressed = isButtonDown; //Pressed
+                if (isButtonDown) OnStartWaitKeyDown(); //다운
+                if (!isButtonDown) OnStartWaitKeyUp(); //업
+                previousTriggerValue = value;
+            }
             public void OnStartWaitKeyDown() => StartOrRestartCoroutine(_coWaitKeyDown, Co_KeyControl(_waitKeyDown, _waitKeyDownTime, _coWaitKeyDown));
             public void OnStartWaitKeyUp() => StartOrRestartCoroutine(_coWaitKeyUp, Co_KeyControl(_waitKeyUp, _waitKeyUpTime, _coWaitKeyUp));
 
@@ -77,27 +90,40 @@ namespace DefaultSetting
 
         #endregion
 
-        private PlayerInput playerInput;
+        private PlayerInput _playerInput;
+        public Define.ControlSchema CurrentControlSchema
+        {
+            get
+            {
+                switch (_playerInput.currentControlScheme)
+                {
+                    case "Keyboard&Mouse":
+                        return Define.ControlSchema.KeyboardMouse;
+                    case "Gamepad":
+                        return Define.ControlSchema.Gamepad;
+                    default:
+                        return Define.ControlSchema.None;
+                }
+            }
+        }
 
         public void Init()
         {
             print("InputManager:\n뉴 입력 시스템이 적용중입니다.");
 
-            playerInput = GetComponent<PlayerInput>();
-            playerInput.actions = Managers.Resource.Load<InputActionAsset>("PlayerInput");
-            playerInput.actions.FindActionMap("Player").Enable();
+            _playerInput = GetComponent<PlayerInput>();
+            _playerInput.actions = Managers.Resource.Load<InputActionAsset>("PlayerInput");
+            _playerInput.actions.FindActionMap("Player").Enable();
         }
 
         public void OnUpdate()
         {
-
+            //Debug.Log($"{CurrentControlSchema}");
         }
 
         public void OnTest()
         {
-#if UNITY_EDITOR
-            Managers.Test.OnTest();
-#endif
+            Managers.Input.OnTest();
         }
 
         #region Input Setting, Rebind, KeyBind Function
@@ -113,18 +139,18 @@ namespace DefaultSetting
                 return;
             }
 
-            playerInput.actions.LoadBindingOverridesFromJson(rebinds);
+            _playerInput.actions.LoadBindingOverridesFromJson(rebinds);
         }
         public void ResetAllBindings()
         {
-            foreach (InputActionMap map in playerInput.actions.actionMaps)
+            foreach (InputActionMap map in _playerInput.actions.actionMaps)
             {
                 map.RemoveAllBindingOverrides();
             }
         }
         public void SaveRebindKey()
         {
-            string rebinds = playerInput.actions.SaveBindingOverridesAsJson();
+            string rebinds = _playerInput.actions.SaveBindingOverridesAsJson();
             Managers.Data.CustomSetPrefsString(Define.REBINDS_KEY, rebinds);
         }
 
@@ -138,7 +164,7 @@ namespace DefaultSetting
             string returnStr = null;
 
             //action이 필요하다.
-            InputActionMap inputActionMap = playerInput.actions.FindActionMap("Player");
+            InputActionMap inputActionMap = _playerInput.actions.FindActionMap("Player");
             InputAction currentInputAction = inputActionMap.FindAction(actionName);
             //print(currentInputAction);
 
@@ -184,88 +210,39 @@ namespace DefaultSetting
         #region Binding Keys
 
         [field: Header("마우스 좌표")]
-        [field: ReadOnly] public Vector2 MousePos { get; private set; }
-        void OnMousePosition(InputValue inputValue)
-        {
-            MousePos = inputValue.Get<Vector2>();
-        }
-
+        [field: SerializeField, ReadOnly] public Vector2 MousePos { get; private set; }
+        void OnMousePosition(InputValue inputValue) => MousePos = inputValue.Get<Vector2>();
 
         [field: Header("움직임 입력")]
         [ReadOnly] public Vector2 inputMoveDir;
         [ReadOnly] public bool isMovePressed = false;
         void OnMove(InputValue inputValue)
         {
-            inputMoveDir = inputValue.Get<Vector2>();
+            Vector2 inputVectorValue = inputValue.Get<Vector2>();
 
+            float normalizedX = inputVectorValue.x != 0 ? Mathf.Sign(inputVectorValue.x) : 0;
+            inputMoveDir = new Vector2(normalizedX, 0);
             isMovePressed = inputMoveDir != default ? true : false;
         }
 
-
-        [Header("Dash Key")]
-        [SerializeField] private KeyGroup _dashKeyGroup;
-        public bool WaitDashDown
+        [Header("Input Value Key")]
+        [SerializeField] private KeyGroup _inputValueKeyGroup;
+        public bool WaitInputValueDown
         {
-            get { return _dashKeyGroup.WaitKeyDown; }
-            set { _dashKeyGroup.WaitKeyDown = value; }
+            get { return _inputValueKeyGroup.WaitKeyDown; }
+            set { _inputValueKeyGroup.WaitKeyDown = value; }
         }
-        public bool WaitDashUp
+        public bool WaitInputValueUp
         {
-            get { return _dashKeyGroup.WaitKeyUp; }
-            set { _dashKeyGroup.WaitKeyUp = value; }
+            get { return _inputValueKeyGroup.WaitKeyUp; }
+            set { _inputValueKeyGroup.WaitKeyUp = value; }
         }
-        void OnDash(InputValue inputValue)
+        public bool WaitInputValuePressed
         {
-            var value = inputValue.Get<float>();
-
-            _dashKeyGroup.WaitKeyPressed = value == 1; //Pressed
-            if (value == 1) _dashKeyGroup.OnStartWaitKeyDown(); //다운
-            if (value == 0) _dashKeyGroup.OnStartWaitKeyUp(); //업
+            get { return _inputValueKeyGroup.WaitKeyPressed; }
+            set { _inputValueKeyGroup.WaitKeyPressed = value; }
         }
-
-
-        [Header("Attack Key")]
-        [SerializeField] private KeyGroup _attackKeyGroup;
-        public bool WaitAttackDown
-        {
-            get { return _attackKeyGroup.WaitKeyDown; }
-            set { _attackKeyGroup.WaitKeyDown = value; }
-        }
-        public bool WaitAttackUp
-        {
-            get { return _attackKeyGroup.WaitKeyUp; }
-            set { _attackKeyGroup.WaitKeyUp = value; }
-        }
-        void OnAttack(InputValue inputValue)
-        {
-            var value = inputValue.Get<float>();
-
-            _attackKeyGroup.WaitKeyPressed = value == 1; //Pressed
-            if (value == 1) _attackKeyGroup.OnStartWaitKeyDown(); //다운
-            if (value == 0) _attackKeyGroup.OnStartWaitKeyUp(); //업
-        }
-
-
-        [Header("Temp Key")]
-        [SerializeField] private KeyGroup _tempKeyGroup;
-        public bool WaitTempDown
-        {
-            get => _tempKeyGroup.WaitKeyDown;
-            set => _tempKeyGroup.WaitKeyDown = value;
-        }
-        public bool WaitTempUp
-        {
-            get => _tempKeyGroup.WaitKeyUp;
-            set => _tempKeyGroup.WaitKeyUp = value;
-        }
-        void OnTemp(InputValue inputValue)
-        {
-            var value = inputValue.Get<float>();
-
-            _tempKeyGroup.WaitKeyPressed = value == 1; //Pressed
-            if (value == 1) _tempKeyGroup.OnStartWaitKeyDown(); //다운
-            if (value == 0) _tempKeyGroup.OnStartWaitKeyUp(); //업
-        }
+        void OnInputValue(InputValue inputValue) => _inputValueKeyGroup.OnInputValue(inputValue.Get<float>());
 
         #endregion
     }
