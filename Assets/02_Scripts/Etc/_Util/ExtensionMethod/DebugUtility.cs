@@ -51,6 +51,26 @@ namespace DefaultSetting.Utility
         }
 
         #endregion
+        #region DebugWrapUtility
+
+        public static void Log(object message) => Debug.Log(FormatMessage(message));
+        public static void LogWarning(object message) => Debug.LogWarning(FormatMessage(message));
+        public static void LogError(object message) => Debug.LogError(FormatMessage(message));
+        public static void Assert(bool condition) => Debug.Assert(condition, FormatMessage("Assertion failed"));
+        public static void Assert(bool condition, object message) => Debug.Assert(condition, FormatMessage(message));
+
+        private static string FormatMessage(object message)
+        {
+            float timeInSeconds = Time.time;
+            int minutes = Mathf.FloorToInt(timeInSeconds / 60);
+            int seconds = Mathf.FloorToInt(timeInSeconds % 60);
+            int fractionalSeconds = Mathf.FloorToInt((timeInSeconds % 1) * 1_000_000); // 소수점 부분을 정수화 (0~999999 범위)
+            string fractionalString = fractionalSeconds.ToString().PadLeft(6, '0');
+
+            return $"{minutes}m {seconds}s {fractionalString}\n{message}";
+        }
+
+        #endregion
         #region PrintUtility
 
         /// <summary>
@@ -61,7 +81,7 @@ namespace DefaultSetting.Utility
         {
             printStaticSB.Clear();
             AppendSB(data, Label, printStaticSB);
-            Debug.Log(printStaticSB);
+            Log(printStaticSB);
         }
 
         public static void AppendSB<T>(this T data, string Label = null, StringBuilder sb = null)
