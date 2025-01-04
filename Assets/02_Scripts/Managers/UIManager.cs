@@ -20,6 +20,7 @@ namespace DefaultSetting
                     go.transform.SetParent(Root.transform);
 
                     _loadingPopup = Util.GetOrAddComponent<UI_Loading>(go);
+                    _loadingPopup.Init();
                     Canvas canvas = _loadingPopup.GetComponent<Canvas>();
                     canvas.renderMode = RenderMode.ScreenSpaceOverlay;
                     canvas.overrideSorting = true;

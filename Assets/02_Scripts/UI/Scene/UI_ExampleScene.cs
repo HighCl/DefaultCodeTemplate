@@ -19,7 +19,7 @@ namespace DefaultSetting
             exampleButton.gameObject.BindEvent(
                 (PointerEventData data) =>
                 {
-                    Managers.Scene.LoadScene(Define.Scene.InGame);
+                    Managers.Scene.LoadSceneAsync(Define.Scene.InGame);
                     print("버튼 클릭");
                 });
         }

@@ -98,16 +98,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55a97d0c024c6e54e8fc107a1e6f9f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tempKey: 0
-  waitTempKeyDownTime: 0.2
-  inputHorizontal: {x: 0, y: 0}
-  isHorizontalPressed: 0
   <MousePos>k__BackingField: {x: 0, y: 0}
-  _waitRopeDown: 0
-  waitRopeDownTime: 0.2
-  <WaitRopePressed>k__BackingField: 0
-  _waitRopeUp: 0
-  waitRopeUpTime: 0.2
+  inputMoveDir: {x: 0, y: 0}
+  isMovePressed: 0
+  _inputValueKeyGroup:
+    _waitKeyDown:
+      <Value>k__BackingField: 0
+    _waitKeyUp:
+      <Value>k__BackingField: 0
+    WaitKeyPressed: 0
+    triggerThreshold: 0.5
+    _waitKeyDownTime: 0.2
+    _waitKeyUpTime: 0.2
 --- !u!114 &3875064055905808406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,6 +652,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSteamWorks: 0
   isNewInputSystem: 1
+  enbaleRayCastTarget: 0
+  targetFont: NanumGothicSDF
+  makeEditorConfig: 1
 --- !u!1 &8978187198505215744
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,4 +700,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <loadingFadeTime>k__BackingField: 0.3
-  <loadingDelayTime>k__BackingField: 0.1
+  <minLoadingTime>k__BackingField: 1

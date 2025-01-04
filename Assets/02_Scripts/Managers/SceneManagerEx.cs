@@ -1,3 +1,4 @@
+using DefaultSetting.Utility;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,9 +8,9 @@ namespace DefaultSetting
     public class SceneManagerEx : MonoBehaviour
     {
         [field: SerializeField]
-        public float loadingFadeTime { get; private set; } = 0.3f;
+        public float loadingFadeTime { get; private set; } = 0.2f;
         [field: SerializeField]
-        public float loadingDelayTime { get; private set; } = 0.1f;
+        public float minLoadingTime { get; private set; } = 0.7f;
 
         public WaitForSecondsRealtime fadeWfs = null;
         public WaitForSecondsRealtime delayWfs = null;
@@ -19,7 +20,7 @@ namespace DefaultSetting
         public void Init()
         {
             fadeWfs = new WaitForSecondsRealtime(loadingFadeTime);
-            delayWfs = new WaitForSecondsRealtime(loadingDelayTime);
+            delayWfs = new WaitForSecondsRealtime(minLoadingTime);
 
             SceneManager.sceneLoaded -= OnLoadSetting;
             SceneManager.sceneLoaded += OnLoadSetting;
@@ -30,18 +31,33 @@ namespace DefaultSetting
             SceneManager.sceneLoaded -= OnLoadSetting;
         }
 
-        public void LoadScene(Define.Scene type)
+        public void LoadSceneAsync(Define.Scene type)
         {
-            StartCoroutine(CoLoadScene(type));
+            StartCoroutine(Co_LoadSceneAsync(type));
         }
 
-        IEnumerator CoLoadScene(Define.Scene type)
+        IEnumerator Co_LoadSceneAsync(Define.Scene type)
         {
-            Managers.UI.LoadingPopup.OnStartFade(type);
-            yield return fadeWfs;
-            Managers.Clear();
-            SceneManager.LoadScene(GetSceneName(type));
+            //사전 조건
+            DebugUtility.Log($"씬 로드 시작");
+            float startTime = Time.time;
 
+            //로직
+            yield return StartCoroutine(Managers.UI.LoadingPopup.BeginLoading());
+
+            AsyncOperation operation = SceneManager.LoadSceneAsync(GetSceneName(type));
+            operation.allowSceneActivation = false;
+            yield return StartCoroutine(Managers.UI.LoadingPopup.StartLoadingAsync(operation));
+
+            float elapsedTime = Time.time - startTime;
+            yield return StartCoroutine(Managers.UI.LoadingPopup.WaitRemainingTimeAsync(elapsedTime));
+
+            //사후 조건
+            DebugUtility.Log($"씬 로드 종료");
+            Managers.Clear();
+            operation.allowSceneActivation = true;
+            yield return new WaitForSeconds(0.2f);
+            StartCoroutine(Managers.UI.LoadingPopup.CompleteLoad());
         }
 
         public void OnLoadSetting(Scene scene, LoadSceneMode sceneMode)
