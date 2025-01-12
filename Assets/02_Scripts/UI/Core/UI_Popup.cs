@@ -8,6 +8,7 @@ namespace DefaultSetting
             Managers.UI.SetCanvas(gameObject, true);
         }
 
+        public virtual void ClosePopupUI(PointerEventData _) => ClosePopupUI();
         public virtual void ClosePopupUI()
         {
             Managers.UI.ClosePopupUI(this);
