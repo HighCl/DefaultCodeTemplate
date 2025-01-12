@@ -1,6 +1,5 @@
 namespace DefaultSetting
 {
-
     //DefaultDefine
     //어떤 게임이든 기본적으로 가지고 있어야 하는 Define 요소들
     //변동되지 않거나 아주 약간씩 바뀌는 요소들을 넣는다.
@@ -10,6 +9,10 @@ namespace DefaultSetting
         public static readonly string REBINDS_KEY = "rebinds";
         public static readonly string LANGUAGE_KEY = "language";
         public static readonly string IS_CURSOR_LOCK_KEY = "CursorLockMode";
+        #endregion
+        #region Const
+        public const string DEBUG_CONDITIONAL = "UNITY_EDITOR";
+        public const string TEST_CONDITIONAL = DEBUG_CONDITIONAL;
         #endregion
 
         public enum ControlSchema

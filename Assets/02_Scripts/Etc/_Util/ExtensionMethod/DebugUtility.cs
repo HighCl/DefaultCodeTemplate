@@ -50,6 +50,40 @@ namespace DefaultSetting.Utility
             Debug.DrawLine(bottomLeft, topLeft, color, duration);
         }
 
+        public static void DrawCircle(Vector2 center, float radius, Color color, float duration) => DrawCircle((Vector3)center, radius, color, duration);
+        public static void DrawCircle(Vector3 center, float radius, Color color, float duration)
+        {
+            SceneView sceneView = SceneView.lastActiveSceneView;
+            DebugUtility.Assert(sceneView != null && sceneView.camera != null, "SceneView camera is not available.");
+            Camera sceneCamera = sceneView.camera;
+
+            int segments = 36;
+            float angleStep = 360f / segments;
+
+            Vector3 cameraForward = sceneCamera.transform.forward;
+            Vector3 cameraUp = sceneCamera.transform.up;
+
+            Vector3 right = Vector3.Cross(cameraUp, cameraForward).normalized * radius;
+            Vector3 up = Vector3.Cross(cameraForward, right).normalized * radius;
+
+            Vector3 prevPoint = center + right;
+            for (int i = 1; i <= segments; i++)
+            {
+                float angle = angleStep * i * Mathf.Deg2Rad;
+                Vector3 newPoint = center +
+                    (Mathf.Cos(angle) * right) +
+                    (Mathf.Sin(angle) * up);
+                Debug.DrawLine(prevPoint, newPoint, color, duration);
+                prevPoint = newPoint;
+            }
+        }
+        
+        public static void DrawCircleHandle(Vector2 center, float radius)
+        {
+            Handles.color = Color.red;
+            Handles.DrawWireDisc(center, Vector3.forward, radius);
+        }
+
         #endregion
         #region DebugWrapUtility
 
