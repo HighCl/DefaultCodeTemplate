@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -18,32 +19,53 @@ namespace DefaultSetting.Utility
 
         #region DrawUtility
 
-        public static void DrawRhombus(Vector2 point, float size, Color color, float duration)
+        public static void DrawRhombus(Vector2 point, float size, Color color, float duration) => DrawRhombus((Vector3)point, size, color, duration);
+        public static void DrawRhombus(Vector3 point, float size, Color color, float duration)
         {
-            Vector2 left = point + Vector2.left * size / 2;
-            Vector2 right = point + Vector2.right * size / 2;
-            Vector2 up = point + Vector2.up * size / 2;
-            Vector2 down = point + Vector2.down * size / 2;
+            SceneView sceneView = SceneView.lastActiveSceneView;
+            DebugUtility.Assert(sceneView != null && sceneView.camera != null, "SceneView camera is not available.");
+            Camera sceneCamera = sceneView.camera;
+
+            Vector3 cameraForward = sceneCamera.transform.forward;
+            Vector3 cameraUp = sceneCamera.transform.up;
+
+            Vector3 right = Vector3.Cross(cameraUp, cameraForward).normalized * size / 2;
+            Vector3 up = Vector3.Cross(cameraForward, right).normalized * size / 2;
+
+            Vector3 leftPoint = point - right;
+            Vector3 rightPoint = point + right;
+            Vector3 upPoint = point + up;
+            Vector3 downPoint = point - up;
 
             // Draw rhombus
-            Debug.DrawLine(left, up, color, duration);
-            Debug.DrawLine(up, right, color, duration);
-            Debug.DrawLine(right, down, color, duration);
-            Debug.DrawLine(down, left, color, duration);
+            Debug.DrawLine(leftPoint, upPoint, color, duration);
+            Debug.DrawLine(upPoint, rightPoint, color, duration);
+            Debug.DrawLine(rightPoint, downPoint, color, duration);
+            Debug.DrawLine(downPoint, leftPoint, color, duration);
 
             // Draw cross lines
-            Debug.DrawLine(up, down, color, duration);
-            Debug.DrawLine(left, right, color, duration);
+            Debug.DrawLine(upPoint, downPoint, color, duration);
+            Debug.DrawLine(leftPoint, rightPoint, color, duration);
         }
-
-        public static void DrawSquare(Vector2 center, float size, Color color, float duration)
+        
+        public static void DrawSquare(Vector2 center, float size, Color color, float duration) => DrawSquare((Vector3)center, size, color, duration);
+        public static void DrawSquare(Vector3 center, float size, Color color, float duration)
         {
-            Vector2 topLeft = center + new Vector2(-size / 2, size / 2);
-            Vector2 topRight = center + new Vector2(size / 2, size / 2);
-            Vector2 bottomLeft = center + new Vector2(-size / 2, -size / 2);
-            Vector2 bottomRight = center + new Vector2(size / 2, -size / 2);
+            SceneView sceneView = SceneView.lastActiveSceneView;
+            DebugUtility.Assert(sceneView != null && sceneView.camera != null, "SceneView camera is not available.");
+            Camera sceneCamera = sceneView.camera;
 
-            // Draw square
+            Vector3 cameraForward = sceneCamera.transform.forward;
+            Vector3 cameraUp = sceneCamera.transform.up;
+
+            Vector3 right = Vector3.Cross(cameraUp, cameraForward).normalized * size / 2;
+            Vector3 up = Vector3.Cross(cameraForward, right).normalized * size / 2;
+
+            Vector3 topLeft = center - right + up;
+            Vector3 topRight = center + right + up;
+            Vector3 bottomLeft = center - right - up;
+            Vector3 bottomRight = center + right - up;
+
             Debug.DrawLine(topLeft, topRight, color, duration);
             Debug.DrawLine(topRight, bottomRight, color, duration);
             Debug.DrawLine(bottomRight, bottomLeft, color, duration);
