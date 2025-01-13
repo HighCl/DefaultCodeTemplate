@@ -1,3 +1,4 @@
+using DefaultSetting.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace DefaultSetting
             System.Reflection.FieldInfo[] fields = this.GetType().GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
             fields = fields
                 .Where(
-                e => e.FieldType.IsSubclassOf(typeof(Component))
+                e => (e.FieldType == typeof(GameObject) || e.FieldType.IsSubclassOf(typeof(Component)))
                     && !e.FieldType.IsArray
                     && !e.FieldType.IsGenericType)
                 .ToArray();
@@ -39,15 +40,26 @@ namespace DefaultSetting
             foreach (System.Reflection.FieldInfo field in fields)
             {
                 string fieldName = NameModifier(field.Name);
-                Component[] getComponents = prefabRoot.GetComponentsInChildren(field.FieldType);
-                foreach (var comp in getComponents)
-                {
-                    if (!comp.name.Equals(fieldName))
-                        continue;
 
-                    //Debug.Log($"{fieldName} 할당");
-                    field.SetValue(this, comp);
-                    break;
+                if (field.FieldType == typeof(GameObject))
+                {
+                    GameObject foundGo = prefabRoot.FindAllChild(fieldName);
+                    if (foundGo != null)
+                    {
+                        field.SetValue(this, foundGo.gameObject);
+                    }
+                }
+                else
+                {
+                    Component[] getComponents = prefabRoot.GetComponentsInChildren(field.FieldType);
+                    foreach (var comp in getComponents)
+                    {
+                        if (!comp.name.Equals(fieldName))
+                            continue;
+
+                        field.SetValue(this, comp);
+                        break;
+                    }
                 }
             }
             Debug.Log($"필드 할당 종료");
