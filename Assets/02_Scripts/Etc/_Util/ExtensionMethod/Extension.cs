@@ -385,7 +385,7 @@ namespace DefaultSetting.Utility
         /// <summary>
         /// 특정 이름을 가진 자식을 모든 계층 구조에서 검색합니다.
         /// </summary>
-        public static GameObject FindAllChild(this GameObject go, string findName, bool includeInactive = true) => FindAllChild(go.transform, findName, includeInactive).gameObject;
+        public static GameObject FindAllChild(this GameObject go, string findName, bool includeInactive = true) => FindAllChild(go.transform, findName, includeInactive)?.gameObject;
 
         /// <summary>
         /// 특정 이름을 가진 자식을 모든 계층 구조에서 검색합니다.
