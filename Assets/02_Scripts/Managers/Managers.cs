@@ -8,6 +8,7 @@ namespace DefaultSetting
         static Managers Instance { get { Init(); return s_instance; } } // 유일한 매니저를 갖고온다
 
 
+        CoroutineManager _coroutineEx;
         DataManager _data;
         GameManager _game;
         InputManager _input;
@@ -18,6 +19,16 @@ namespace DefaultSetting
         UIManager _ui;
         ScreenManager _video;
 
+        public static CoroutineManager CoroutineEx
+        {
+            get
+            {
+                if (Instance._coroutineEx == null)
+                    Instance._coroutineEx = GetOrMakeManager<CoroutineManager>();
+
+                return Instance._coroutineEx;
+            }
+        }
         public static DataManager Data
         {
             get
@@ -158,6 +169,7 @@ namespace DefaultSetting
                 s_instance = go.GetComponent<Managers>();
                 DontDestroyOnLoad(go);
 
+                CoroutineEx.Init();
                 Data.Init();
                 Pool.Init();
                 Sound.Init();
