@@ -381,6 +381,26 @@ namespace DefaultSetting.Utility
             //4. 교차점 벡터를 반환한다.
             return returnPoint;
         }
+
+        /// <summary>
+        /// 특정 이름을 가진 자식을 모든 계층 구조에서 검색합니다.
+        /// </summary>
+        public static GameObject FindAllChild(this GameObject go, string findName, bool includeInactive = true) => FindAllChild(go.transform, findName, includeInactive).gameObject;
+
+        /// <summary>
+        /// 특정 이름을 가진 자식을 모든 계층 구조에서 검색합니다.
+        /// </summary>
+        public static Transform FindAllChild(this Transform tr, string findName, bool includeInactive = true)
+        {
+            if (string.IsNullOrEmpty(findName))
+            {
+                DebugUtility.LogWarning("findName is null or empty.");
+                return null;
+            }
+
+            return tr.GetComponentsInChildren<Transform>(includeInactive)
+                .FirstOrDefault(t => t.name.Equals(findName));
+        }
         #endregion
 
         #region Vector
