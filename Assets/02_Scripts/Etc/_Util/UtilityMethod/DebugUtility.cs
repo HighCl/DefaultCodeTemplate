@@ -50,6 +50,7 @@ namespace DefaultSetting.Utility
             Debug.DrawLine(leftPoint, rightPoint, color, duration);
         }
 
+        [System.Diagnostics.Conditional(Define.DEBUG_CONDITIONAL)]
         public static void DrawSquare(Vector2 center, float size, Color color, float duration) => DrawSquare((Vector3)center, size, color, duration);
         [System.Diagnostics.Conditional(Define.DEBUG_CONDITIONAL)]
         public static void DrawSquare(Vector3 center, float size, Color color, float duration)
