@@ -32,5 +32,26 @@ namespace DefaultSetting.Utility
 
             return isHit;
         }
+
+        public static RaycastHit[] RaycastAllWithDraw(Vector3 startPos, Vector3 dir, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal, bool isDraw = true)
+        {
+            RaycastHit[] hitInfoArr = Physics.RaycastAll(startPos, dir, maxDistance, layerMask, queryTriggerInteraction);
+
+#if UNITY_EDITOR
+            if (isDraw)
+            {
+                maxDistance = (maxDistance == Mathf.Infinity) ? DEFAULT_MAX_DISTANCE : maxDistance;
+                Vector3 endPos = startPos + dir.normalized * maxDistance;
+                Debug.DrawLine(startPos, endPos, Color.green, Time.deltaTime);
+
+                foreach (var hit in hitInfoArr)
+                {
+                    DebugUtility.DrawRhombus(hit.point, RHOMBUS_SIZE, Color.red, Time.deltaTime);
+                }
+            }
+#endif
+
+            return hitInfoArr;
+        }
     }
 }
