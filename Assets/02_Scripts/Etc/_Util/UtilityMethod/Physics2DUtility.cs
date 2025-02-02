@@ -44,19 +44,9 @@ namespace DefaultSetting.Utility
                 Vector3 endPos = startPos + dir.normalized * maxDistance;
                 Debug.DrawLine(startPos, endPos, Color.green, Time.deltaTime);
 
-                foreach (var item in hitInfoArr)
+                foreach (var hit in hitInfoArr)
                 {
-                    Vector2 left = item.point + Vector2.left * RHOMBUS_SIZE;
-                    Vector2 right = item.point + Vector2.right * RHOMBUS_SIZE;
-                    Vector2 up = item.point + Vector2.up * RHOMBUS_SIZE;
-                    Vector2 down = item.point + Vector2.down * RHOMBUS_SIZE;
-
-                    Debug.DrawLine(left, up, Color.red, Time.deltaTime);
-                    Debug.DrawLine(up, right, Color.red, Time.deltaTime);
-                    Debug.DrawLine(right, down, Color.red, Time.deltaTime);
-                    Debug.DrawLine(down, left, Color.red, Time.deltaTime);
-                    Debug.DrawLine(up, down, Color.red, Time.deltaTime);
-                    Debug.DrawLine(left, right, Color.red, Time.deltaTime);
+                    DebugUtility.DrawRhombus(hit.point, RHOMBUS_SIZE, Color.red, Time.deltaTime);
                 }
             }
 #endif
