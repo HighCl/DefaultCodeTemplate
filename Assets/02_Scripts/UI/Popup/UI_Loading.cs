@@ -33,7 +33,7 @@ namespace DefaultSetting
             SetActiveLoadingGroup(true);
             _loadingScreen.color = _loadingScreen.color.GetChangeAlpha(0);
             _loadingBar.value = 0f;
-            yield return StartCoroutine(Extension.Co_FadePlay(null, _loadingScreen, Extension.Ease.Linear, fadeTime, 0, loadingScreenTargetFadeAlpha, isRealTime: true));
+            yield return StartCoroutine(ExUtility.Co_FadePlay(null, _loadingScreen, ExUtility.Ease.Linear, fadeTime, 0, loadingScreenTargetFadeAlpha, isRealTime: true));
         }
 
         public IEnumerator StartLoadingAsync(AsyncOperation operation)
@@ -71,8 +71,8 @@ namespace DefaultSetting
 
         public IEnumerator CompleteLoad()
         {
-            StartCoroutine(Extension.Co_FadePlay(null, _loadingScreen, Extension.Ease.Linear, fadeTime, loadingScreenTargetFadeAlpha, 0, isRealTime: true));
-            StartCoroutine(Extension.Co_FadePlay(null, _loadingBar, Extension.Ease.Linear, fadeTime, loadingScreenTargetFadeAlpha, 0, isRealTime: true));
+            StartCoroutine(ExUtility.Co_FadePlay(null, _loadingScreen, ExUtility.Ease.Linear, fadeTime, loadingScreenTargetFadeAlpha, 0, isRealTime: true));
+            StartCoroutine(ExUtility.Co_FadePlay(null, _loadingBar, ExUtility.Ease.Linear, fadeTime, loadingScreenTargetFadeAlpha, 0, isRealTime: true));
             yield return new WaitForSeconds(fadeTime);
             SetActiveLoadingGroup(false);
         }

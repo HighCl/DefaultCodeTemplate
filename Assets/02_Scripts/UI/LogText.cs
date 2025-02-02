@@ -49,8 +49,8 @@ public class LogText : MonoBehaviour
     {
         float currentTime = 0;
 
-        StartCoroutine(Extension.Co_FadePlay(null, bgImage, Extension.Ease.Linear, prodTime: 0.2f, bgImage.color.a, 0, 1, true));
-        StartCoroutine(Extension.Co_FadePlay(null, logText, Extension.Ease.Linear, prodTime: 0.2f, logText.color.a, 0, 1, true));
+        StartCoroutine(ExUtility.Co_FadePlay(null, bgImage, ExUtility.Ease.Linear, prodTime: 0.2f, bgImage.color.a, 0, 1, true));
+        StartCoroutine(ExUtility.Co_FadePlay(null, logText, ExUtility.Ease.Linear, prodTime: 0.2f, logText.color.a, 0, 1, true));
         while (currentTime < 3.5f)
         {
             currentTime += Time.unscaledDeltaTime;

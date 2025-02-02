@@ -495,7 +495,7 @@ namespace DefaultSetting
 
                         float t = (currentTime - startSlow) / (jumpTime - startSlow);
 
-                        float calcJumpPower = jumpPowerY - jumpPowerY * Extension.EaseOutCubic(t) * 0.9f;
+                        float calcJumpPower = jumpPowerY - jumpPowerY * ExUtility.EaseOutCubic(t) * 0.9f;
 
                         rig.velocity = new Vector2(rig.velocity.x, calcJumpPower);
                     }

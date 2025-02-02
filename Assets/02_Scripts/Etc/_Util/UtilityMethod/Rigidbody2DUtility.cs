@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DefaultSetting.Utility
 {
-    public static class Rigidbody2DExtentions
+    public static class Rigidbody2DUtility
     {
         /// <summary>
         /// 

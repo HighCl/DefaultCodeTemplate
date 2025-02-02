@@ -47,11 +47,11 @@ namespace DefaultSetting
 
             if (isSteamWorks)
             {
-                Extension.RemoveDefineSymbol(DEFINE_DISABLESTEAMWORKS);
+                ExUtility.RemoveDefineSymbol(DEFINE_DISABLESTEAMWORKS);
             }
             else
             {
-                Extension.AddDefineSymbol(DEFINE_DISABLESTEAMWORKS);
+                ExUtility.AddDefineSymbol(DEFINE_DISABLESTEAMWORKS);
             }
 #endif
         }
@@ -64,13 +64,13 @@ namespace DefaultSetting
 
             if (isNewInputSystem)
             {
-                Extension.AddDefineSymbol(DEFINE_NEW_INPUT_SYSTEM);
-                Extension.RemoveDefineSymbol(DEFINE_LEGACY_INPUT_SYSTEM);
+                ExUtility.AddDefineSymbol(DEFINE_NEW_INPUT_SYSTEM);
+                ExUtility.RemoveDefineSymbol(DEFINE_LEGACY_INPUT_SYSTEM);
             }
             else
             {
-                Extension.AddDefineSymbol(DEFINE_LEGACY_INPUT_SYSTEM);
-                Extension.RemoveDefineSymbol(DEFINE_NEW_INPUT_SYSTEM);
+                ExUtility.AddDefineSymbol(DEFINE_LEGACY_INPUT_SYSTEM);
+                ExUtility.RemoveDefineSymbol(DEFINE_NEW_INPUT_SYSTEM);
             }
 #endif
         }

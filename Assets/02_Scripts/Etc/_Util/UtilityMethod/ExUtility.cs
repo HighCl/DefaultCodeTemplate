@@ -13,7 +13,7 @@ using Random = UnityEngine.Random;
 //HCLibarary
 namespace DefaultSetting.Utility
 {
-    public static class Extension
+    public static class ExUtility
     {
         #region ScriptUtil
 #if UNITY_EDITOR

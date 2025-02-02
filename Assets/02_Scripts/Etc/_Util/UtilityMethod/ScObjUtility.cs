@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace DefaultSetting.Utility
 {
-    public static class ScObjExtension
+    public static class ScObjUtility
     {
         // 사용법
         // SingleUse 시

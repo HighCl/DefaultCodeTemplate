@@ -44,7 +44,7 @@ namespace DefaultSetting
         {
             //로드할 PATH 작성
             string[] findScriptsPath = null;
-            findScriptsPath = Extension.Load_FolderPath2Files(TargetFolder, "*.asset");
+            findScriptsPath = ExUtility.Load_FolderPath2Files(TargetFolder, "*.asset");
 
             foreach (var scObjExPath in findScriptsPath)
             {

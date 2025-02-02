@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace DefaultSetting
+namespace DefaultSetting.Utility
 {
-    public static class PhysicsExtensions
+    public static class PhysicsUtility
     {
         static readonly int DEFAULT_MAX_DISTANCE = 10000;
         static readonly Color DONT_HIT_COLOR = Color.green;
