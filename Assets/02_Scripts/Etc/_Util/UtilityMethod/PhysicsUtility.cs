@@ -16,17 +16,18 @@ namespace DefaultSetting.Utility
             return isHit;
         }
 
-        public static bool RaycastWithDraw(Vector3 startPos, Vector3 dir, out RaycastHit hitInfo, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
+        public static bool RaycastWithDraw(Vector3 startPos, Vector3 dir, out RaycastHit hitInfo, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal, bool isDraw = true)
         {
             bool isHit = Physics.Raycast(startPos, dir, out hitInfo, maxDistance, layerMask, queryTriggerInteraction);
 
 #if UNITY_EDITOR
-            if (!isHit && maxDistance == Mathf.Infinity)
-                maxDistance = DEFAULT_MAX_DISTANCE;
-
-            Vector3 endPos = isHit ? hitInfo.point : startPos + dir.normalized * maxDistance;
-            Color color = isHit ? HIT_COLOR : DONT_HIT_COLOR;
-            Debug.DrawLine(startPos, endPos, color, Time.deltaTime);
+            if (isDraw)
+            {
+                maxDistance = (!isHit && maxDistance == Mathf.Infinity) ? DEFAULT_MAX_DISTANCE : maxDistance;
+                Vector3 endPos = isHit ? hitInfo.point : startPos + dir.normalized * maxDistance;
+                Color color = isHit ? HIT_COLOR : DONT_HIT_COLOR;
+                Debug.DrawLine(startPos, endPos, color, Time.deltaTime);
+            }
 #endif
 
             return isHit;
