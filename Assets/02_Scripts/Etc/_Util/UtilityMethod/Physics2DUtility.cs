@@ -38,7 +38,7 @@ namespace DefaultSetting.Utility
             RaycastHit2D[] hitInfoArr = Physics2D.RaycastAll(startPos, dir, maxDistance, layerMask);
 
 #if UNITY_EDITOR
-            if (hitInfoArr.Length == 0 && maxDistance == Mathf.Infinity)
+            if (maxDistance == Mathf.Infinity)
                 maxDistance = DEFAULT_MAX_DISTANCE;
 
             Vector3 endPos = startPos + dir.normalized * maxDistance;
