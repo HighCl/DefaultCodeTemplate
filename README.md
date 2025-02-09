@@ -94,6 +94,7 @@ https://github.com/HighCl/DefaultCodeTemplate.git?path=Assets#upm
 
 - @Managers 프리팹의 _SettingManager에서 OnSetting 버튼 실행<br>
 1. SteamWorks Sdk 사용 여부 설정<br>
+DISABLESTEAMWORKS Define Symbol이 추가됩니다.<br>
 2. 사용할 Input System 설정<br>
 3. TMP 기본값 설정<br>
 3-1. EnableRaycastTarget 설정<br>
