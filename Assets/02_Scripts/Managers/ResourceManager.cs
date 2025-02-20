@@ -1,3 +1,4 @@
+using DefaultSetting.Utility;
 using System.Collections;
 using UnityEngine;
 
@@ -10,9 +11,11 @@ namespace DefaultSetting
             T original = Load<T>($"Prefabs/{path}");
             if (original == null)
             {
+#if UNITY_EDITOR
                 string prevFuncName = new System.Diagnostics.StackFrame(1, true).GetMethod().Name;
                 string prevClassName = new System.Diagnostics.StackTrace().GetFrame(1).GetMethod().ReflectedType.Name;
-                Debug.Log($"Failed to load prefab : {path}\nprevFunc : {prevFuncName}\nprefClassName : {prevClassName}\n");
+                DebugUtility.Log($"Failed to load prefab : {path}\nprevFunc : {prevFuncName}\nprefClassName : {prevClassName}\n");
+#endif
                 return null;
             }
             return original;
