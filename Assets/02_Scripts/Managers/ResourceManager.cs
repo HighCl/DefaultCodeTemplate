@@ -43,30 +43,34 @@ namespace DefaultSetting
         public GameObject Instantiate(string path, Transform parent = null)
         {
             GameObject original = LoadOriginal<GameObject>(path);
-
-            GameObject go;
-            if (original.GetComponent<Poolable>() != null)
-                go = Managers.Pool.Pop(original, parent).gameObject;
-            else
-                go = Object.Instantiate(original, parent);
-
-            go.name = original.name;
-            return go;
+            return InstantiateInternal(original, parent);
         }
 
-        public GameObject Instantiate(string path, Vector3 position, Quaternion rotation)
+        public GameObject Instantiate(string path, Vector3 position, Quaternion rotation = default)
         {
             GameObject original = LoadOriginal<GameObject>(path);
+            return InstantiateInternal(original, null, position, rotation);
+        }
 
-            GameObject go;
-            if (original.GetComponent<Poolable>() != null)
-                go = Managers.Pool.Pop(original, null).gameObject;
-            else
-                go = Object.Instantiate(original);
+        public GameObject Instantiate(GameObject original, Transform parent = null)
+        {
+            return InstantiateInternal(original, parent);
+        }
 
-            go.transform.position = position;
-            go.transform.rotation = rotation;
+        public GameObject Instantiate(GameObject original, Vector3 position = default, Quaternion rotation = default)
+        {
+            return InstantiateInternal(original, null, position, rotation);
+        }
 
+        private GameObject InstantiateInternal(GameObject original, Transform parent = null, Vector3 position = default, Quaternion rotation = default)
+        {
+            if (original == null) return null;
+
+            GameObject go = (original.GetComponent<Poolable>() != null)
+                ? Managers.Pool.Pop(original, parent).gameObject
+                : Object.Instantiate(original, parent);
+
+            go.transform.SetPositionAndRotation(position, rotation);
             go.name = original.name;
             return go;
         }
