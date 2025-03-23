@@ -14,7 +14,7 @@ namespace DefaultSetting
 #if UNITY_EDITOR
                 string prevFuncName = new System.Diagnostics.StackFrame(1, true).GetMethod().Name;
                 string prevClassName = new System.Diagnostics.StackTrace().GetFrame(1).GetMethod().ReflectedType.Name;
-                DebugUtility.Log($"Failed to load prefab : {path}\nprevFunc : {prevFuncName}\nprefClassName : {prevClassName}\n");
+                DebugUtility.Log($"Failed to load prefab : {(string.IsNullOrEmpty(path) ? "None" : path)}\nprevFunc : {prevFuncName}\nprefClassName : {prevClassName}\n");
 #endif
                 return null;
             }
@@ -40,6 +40,7 @@ namespace DefaultSetting
             return Resources.Load<T>(path);
         }
 
+        #region Path_GameObject
         public GameObject Instantiate(string path, Transform parent = null)
         {
             GameObject original = LoadOriginal<GameObject>(path);
@@ -51,7 +52,25 @@ namespace DefaultSetting
             GameObject original = LoadOriginal<GameObject>(path);
             return InstantiateInternal(original, null, position, rotation);
         }
+        #endregion
 
+        #region Path_Component
+        public T Instantiate<T>(string path, Transform parent = null) where T : Component
+        {
+            GameObject original = LoadOriginal<GameObject>(path);
+            GameObject instance = InstantiateInternal(original, parent);
+            return instance?.GetComponent<T>();
+        }
+
+        public T Instantiate<T>(string path, Vector3 position, Quaternion rotation = default) where T : Component
+        {
+            GameObject original = LoadOriginal<GameObject>(path);
+            GameObject instance = InstantiateInternal(original, null, position, rotation);
+            return instance?.GetComponent<T>();
+        }
+        #endregion
+
+        #region GameObject
         public GameObject Instantiate(GameObject original, Transform parent = null)
         {
             return InstantiateInternal(original, parent);
@@ -61,10 +80,26 @@ namespace DefaultSetting
         {
             return InstantiateInternal(original, null, position, rotation);
         }
+        #endregion
+
+        #region Component
+        public new T Instantiate<T>(T original, Transform parent = null) where T : Component
+        {
+            GameObject go = InstantiateInternal(original?.gameObject, parent);
+            return go?.GetComponent<T>();
+        }
+
+        public new T Instantiate<T>(T original, Vector3 position, Quaternion rotation = default) where T : Component
+        {
+            GameObject go = InstantiateInternal(original?.gameObject, null, position, rotation);
+            return go?.GetComponent<T>();
+        }
+        #endregion
 
         private GameObject InstantiateInternal(GameObject original, Transform parent = null, Vector3 position = default, Quaternion rotation = default)
         {
-            if (original == null) return null;
+            if (original == null)
+                return null;
 
             GameObject go = (original.GetComponent<Poolable>() != null)
                 ? Managers.Pool.Pop(original, parent).gameObject
