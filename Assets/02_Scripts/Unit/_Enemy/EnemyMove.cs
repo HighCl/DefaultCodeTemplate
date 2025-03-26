@@ -1,27 +1,30 @@
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyController))]
-public class EnemyMove : MonoBehaviour
+namespace DefaultSetting
 {
-    [SerializeField] private EnemyController _controller;
-
-    private float _speed = 4;
-    public bool IsMoving = false;
-
-    public void MyAwake(EnemyController controller)
+    [RequireComponent(typeof(EnemyController))]
+    public class EnemyMove : MonoBehaviour
     {
-        _controller = controller;
-    }
+        [SerializeField] private EnemyController _controller;
 
-    public void MyUpdate()
-    {
-    }
+        private float _speed = 4;
+        public bool IsMoving = false;
 
-    public void MyFixedUpdate()
-    {
-    }
+        public void MyAwake(EnemyController controller)
+        {
+            _controller = controller;
+        }
 
-    public void MyDrawGizmosSelected()
-    {
+        public void MyUpdate()
+        {
+        }
+
+        public void MyFixedUpdate()
+        {
+        }
+
+        public void MyDrawGizmosSelected()
+        {
+        }
     }
 }

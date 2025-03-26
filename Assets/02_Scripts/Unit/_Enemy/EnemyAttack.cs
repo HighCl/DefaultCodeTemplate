@@ -1,47 +1,50 @@
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyController))]
-public class EnemyAttack : MonoBehaviour
+namespace DefaultSetting
 {
-    [SerializeField, ReadOnly] private EnemyController _controller;
-
-    [SerializeField] private bool _hasAttack = true;
-    public bool IsAttacking = false;
-
-    public SphereCollider attackSensor;
-
-    public void MyAwake(EnemyController controller)
+    [RequireComponent(typeof(EnemyController))]
+    public class EnemyAttack : MonoBehaviour
     {
-        this._controller = controller;
-    }
+        [SerializeField, ReadOnly] private EnemyController _controller;
 
-    public void MyUpdate()
-    {
-        switch (_controller.FSM)
+        [SerializeField] private bool _hasAttack = true;
+        public bool IsAttacking = false;
+
+        public SphereCollider attackSensor;
+
+        public void MyAwake(EnemyController controller)
         {
-            case EnemyFSM.Patrol:
-                break;
-            case EnemyFSM.Chase:
-                break;
-            case EnemyFSM.Attack:
-                OnAttack();
-                break;
-            case EnemyFSM.Die:
-                break;
-            default:
-                break;
+            this._controller = controller;
         }
-    }
 
-    void OnAttack()
-    {
-        if (!_hasAttack)
-            return;
+        public void MyUpdate()
+        {
+            switch (_controller.FSM)
+            {
+                case EnemyFSM.Patrol:
+                    break;
+                case EnemyFSM.Chase:
+                    break;
+                case EnemyFSM.Attack:
+                    OnAttack();
+                    break;
+                case EnemyFSM.Die:
+                    break;
+                default:
+                    break;
+            }
+        }
 
-        //TODO: Attack 구현
-    }
+        void OnAttack()
+        {
+            if (!_hasAttack)
+                return;
 
-    public void MyDrawGizmosSelected()
-    {
+            //TODO: Attack 구현
+        }
+
+        public void MyDrawGizmosSelected()
+        {
+        }
     }
 }

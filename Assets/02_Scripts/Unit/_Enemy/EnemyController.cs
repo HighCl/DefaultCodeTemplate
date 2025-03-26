@@ -1,114 +1,117 @@
 using DefaultSetting.Utility;
 using UnityEngine;
 
-public enum EnemyFSM
+namespace DefaultSetting
 {
-    None,
-    Patrol,
-    Chase,
-    Attack,
-    Die,
-}
-
-[RequireComponent(typeof(EnemyMove))]
-[RequireComponent(typeof(EnemyAttack))]
-[RequireComponent(typeof(EnemyAnimation))]
-[RequireComponent(typeof(EnemyStat))]
-[RequireComponent(typeof(EnemyState))]
-public class EnemyController : MonoBehaviour
-{
-    [field: SerializeField] public EnemyFSM FSM { get; private set; }
-    [field: SerializeField] public Collider2D Coll { get; private set; }
-    [field: SerializeField] public Rigidbody2D Rig { get; private set; }
-
-    [field: SerializeField] public EnemyMove Move { get; private set; }
-    [field: SerializeField] public EnemyAttack Attack { get; private set; }
-    [field: SerializeField] public EnemyAnimation Anim { get; private set; }
-    [field: SerializeField] public EnemyStat Stat { get; private set; }
-    [field: SerializeField] public EnemyState State { get; private set; }
-
-    public bool isAlive = true;
-    public bool isDrawGizmos = true;
-
-    public bool IsMove => true;
-
-    private void Reset()
+    public enum EnemyFSM
     {
-        Stat = GetComponent<EnemyStat>();
-
-        Coll = GetComponent<Collider2D>();
-        Rig = GetComponent<Rigidbody2D>();
-
-        Move = GetComponent<EnemyMove>();
-        Attack = GetComponent<EnemyAttack>();
-        Anim = GetComponent<EnemyAnimation>();
-        State = GetComponent<EnemyState>();
+        None,
+        Patrol,
+        Chase,
+        Attack,
+        Die,
     }
 
-    void Awake()
+    [RequireComponent(typeof(EnemyMove))]
+    [RequireComponent(typeof(EnemyAttack))]
+    [RequireComponent(typeof(EnemyAnimation))]
+    [RequireComponent(typeof(EnemyStat))]
+    [RequireComponent(typeof(EnemyState))]
+    public class EnemyController : MonoBehaviour
     {
-        isAlive = true;
-        Stat.MyAwake(this);
+        [field: SerializeField] public EnemyFSM FSM { get; private set; }
+        [field: SerializeField] public Collider2D Coll { get; private set; }
+        [field: SerializeField] public Rigidbody2D Rig { get; private set; }
 
-        Move.MyAwake(this);
-        Attack.MyAwake(this);
+        [field: SerializeField] public EnemyMove Move { get; private set; }
+        [field: SerializeField] public EnemyAttack Attack { get; private set; }
+        [field: SerializeField] public EnemyAnimation Anim { get; private set; }
+        [field: SerializeField] public EnemyStat Stat { get; private set; }
+        [field: SerializeField] public EnemyState State { get; private set; }
 
-        State.MyAwake(this);
-    }
+        public bool isAlive = true;
+        public bool isDrawGizmos = true;
 
-    void Update()
-    {
-        if (!isAlive)
-            return;
+        public bool IsMove => true;
 
-        //Move.MyUpdate();
-        //Attack.MyUpdate();
+        private void Reset()
+        {
+            Stat = GetComponent<EnemyStat>();
 
-        //Anim.MyUpdate();
-    }
+            Coll = GetComponent<Collider2D>();
+            Rig = GetComponent<Rigidbody2D>();
 
-    private void FixedUpdate()
-    {
-        //Move.MyFixedUpdate();
-        //Attack.MyFixedUpdate();
-        //Anim.MyFixedUpdate();
-    }
+            Move = GetComponent<EnemyMove>();
+            Attack = GetComponent<EnemyAttack>();
+            Anim = GetComponent<EnemyAnimation>();
+            State = GetComponent<EnemyState>();
+        }
 
-    public void OnHit(float damage)
-    {
-        //DebugUtility.Log($"피격");
+        void Awake()
+        {
+            isAlive = true;
+            Stat.MyAwake(this);
 
-        Stat.currentHP -= damage;
-        if (Stat.currentHP <= 0)
-            OnDie();
-    }
+            Move.MyAwake(this);
+            Attack.MyAwake(this);
 
-    void OnDie()
-    {
-        //DebugUtility.Log($"사망");
+            State.MyAwake(this);
+        }
 
-        isAlive = false;
-        Anim.OnDie();
-        Coll.enabled = false;
-        Rig.constraints = RigidbodyConstraints2D.FreezeAll;
-    }
+        void Update()
+        {
+            if (!isAlive)
+                return;
 
-    void OnPlayerDie()
-    {
-        if (!isAlive)
-            return;
+            //Move.MyUpdate();
+            //Attack.MyUpdate();
 
-        DebugUtility.Log("플레이어 사망");
-    }
+            //Anim.MyUpdate();
+        }
 
-    public void SetFSM(EnemyFSM fsm) => this.FSM = fsm;
+        private void FixedUpdate()
+        {
+            //Move.MyFixedUpdate();
+            //Attack.MyFixedUpdate();
+            //Anim.MyFixedUpdate();
+        }
 
-    private void OnDrawGizmosSelected()
-    {
-        if (!isDrawGizmos)
-            return;
+        public void OnHit(float damage)
+        {
+            //DebugUtility.Log($"피격");
 
-        //Move.MyDrawGizmosSelected();
-        //Attack.MyDrawGizmosSelected();
+            Stat.currentHP -= damage;
+            if (Stat.currentHP <= 0)
+                OnDie();
+        }
+
+        void OnDie()
+        {
+            //DebugUtility.Log($"사망");
+
+            isAlive = false;
+            Anim.OnDie();
+            Coll.enabled = false;
+            Rig.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+
+        void OnPlayerDie()
+        {
+            if (!isAlive)
+                return;
+
+            DebugUtility.Log("플레이어 사망");
+        }
+
+        public void SetFSM(EnemyFSM fsm) => this.FSM = fsm;
+
+        private void OnDrawGizmosSelected()
+        {
+            if (!isDrawGizmos)
+                return;
+
+            //Move.MyDrawGizmosSelected();
+            //Attack.MyDrawGizmosSelected();
+        }
     }
 }
