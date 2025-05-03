@@ -2,7 +2,7 @@
 이 레포지토리는 강성욱(HighCl)의 기본 코드 템플릿입니다.
 
 제가 게임을 개발하면서 쌓아온 노하우를 템플릿화 해놨으며<br>
-UPM(Unity Package Manager)를 이용해 다운받을 수 있습니다.
+UPM(Unity Package Manager)을 이용해 다운받을 수 있습니다.
 <br><br>
 
 # 블로그
