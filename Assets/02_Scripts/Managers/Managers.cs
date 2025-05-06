@@ -137,7 +137,10 @@ namespace DefaultSetting
         {
             Init();
             if (this != Instance)
+            {
                 Destroy(gameObject);
+                return;
+            }
         }
 
         private void Update()
