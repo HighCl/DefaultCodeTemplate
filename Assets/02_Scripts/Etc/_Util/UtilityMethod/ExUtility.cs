@@ -7,6 +7,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -698,6 +699,32 @@ namespace DefaultSetting.Utility
 
         #endregion
 
+        #region WebRequest
+        public static IEnumerator Co_GetApi(string url)
+        {
+            using (UnityWebRequest request = UnityWebRequest.Get(url))
+            {
+                yield return request.SendWebRequest();
+                Debug.Log("Server responded: " + request.downloadHandler.text);
+            }
+        }
+
+        public static IEnumerator Co_PostApi(string url, string jsonString)
+        {
+            using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+            {
+                byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonString);
+                request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+                request.downloadHandler = new DownloadHandlerBuffer();
+                request.SetRequestHeader("Content-Type", "application/json");
+                yield return request.SendWebRequest();
+
+                request.uploadHandler.Dispose();
+                request.downloadHandler.Dispose();
+                request.Dispose();
+            }
+        }
+        #endregion
         #region Math
         #region EasingFunction
         //ease https://easings.net/ko
